@@ -93,8 +93,7 @@ export default function App() {
         <header>
           <h1>Accessibility Workshop</h1>
           <p style={{ color: "#6b7280" }}>
-            Each tab contains a broken UI component. Your job is to make it
-            fully accessible.
+            Each tab contains a broken UI component. Your job is to make it fully accessible.
           </p>
         </header>
 
@@ -117,16 +116,15 @@ export default function App() {
               id={tab.id}
               key={tab.id}
               aria-controls={tab.panelId}
-              ref={(el) => { tabRefs.current[i] = el; }}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
               onClick={() => focusTab(i)}
               onKeyDown={handleKeyDown}
               style={{
                 padding: "10px 16px",
                 cursor: "pointer",
-                borderBottom:
-                  activeTab === i
-                    ? "2px solid #4f46e5"
-                    : "2px solid transparent",
+                borderBottom: activeTab === i ? "2px solid #4f46e5" : "2px solid transparent",
                 marginBottom: -2,
                 color: activeTab === i ? "#4f46e5" : "#374151",
                 fontWeight: activeTab === i ? 600 : 400,
@@ -155,10 +153,7 @@ export default function App() {
                 onClose={() => setIsModalOpen(false)}
                 title="Example Dialog"
               >
-                <p>
-                  This modal should trap focus and announce itself to screen
-                  readers.
-                </p>
+                <p>This modal should trap focus and announce itself to screen readers.</p>
                 <p>Press Escape or click the close button to dismiss it.</p>
               </Modal>
             </div>
@@ -168,8 +163,8 @@ export default function App() {
             <div id={TABS[2].panelId} role="tabpanel" aria-labelledby={TABS[2].id}>
               <h2>ComboBox</h2>
               <p>
-                A typeahead dropdown that must be navigable by keyboard and
-                announced by screen readers.
+                A typeahead dropdown that must be navigable by keyboard and announced by screen
+                readers.
               </p>
               <div style={{ maxWidth: 300, marginTop: 16 }}>
                 <ComboBox
