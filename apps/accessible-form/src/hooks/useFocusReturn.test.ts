@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach } from "vitest";
-import { useFocusReturn } from "../../hooks/useFocusReturn";
+import { useFocusReturn } from "./useFocusReturn";
 
 beforeEach(() => {
   document.body.innerHTML = "";

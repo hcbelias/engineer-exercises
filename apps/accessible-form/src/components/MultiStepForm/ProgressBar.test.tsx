@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { ProgressBar } from "../../components/MultiStepForm/ProgressBar";
+import { ProgressBar } from "./ProgressBar";
 
 describe("ProgressBar", () => {
   it("has role='progressbar'", () => {

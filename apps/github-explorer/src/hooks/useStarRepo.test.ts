@@ -3,9 +3,9 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { InfiniteData } from "@tanstack/react-query";
 import React from "react";
-import { useStarRepo } from "../../hooks/useStarRepo";
-import type { GithubRepo } from "../../api/types";
-import { queryKeys } from "../../queryKeys";
+import { useStarRepo } from "./useStarRepo";
+import type { GithubRepo } from "../api/types";
+import { queryKeys } from "../queryKeys";
 
 // ---------------------------------------------------------------------------
 // Helpers

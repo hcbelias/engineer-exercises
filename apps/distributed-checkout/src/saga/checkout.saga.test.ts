@@ -1,9 +1,9 @@
 import { describe, it, before, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { executeCheckout } from "../src/saga/checkout.saga";
-import { idempotencyStore } from "../src/idempotency/idempotency.store";
-import { withRetry } from "../src/retry/withRetry";
-import { ServiceError } from "../src/types";
+import { executeCheckout } from "./checkout.saga";
+import { idempotencyStore } from "../idempotency/idempotency.store";
+import { withRetry } from "../retry/withRetry";
+import { ServiceError } from "../types";
 import {
   setAllServicesHealthy,
   makeInventoryAlwaysFail,

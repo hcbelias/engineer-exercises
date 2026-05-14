@@ -4,7 +4,7 @@
  */
 import { describe, it, beforeEach } from "node:test";
 import assert from "node:assert/strict";
-import { idempotencyStore } from "../../src/idempotency/idempotency.store";
+import { idempotencyStore } from "./idempotency.store";
 
 describe("idempotencyStore — pure unit tests", () => {
   beforeEach(() => {

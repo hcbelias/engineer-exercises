@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { useAnnounce } from "../../hooks/useAnnounce";
+import { useAnnounce } from "./useAnnounce";
 
 beforeEach(() => {
   vi.useFakeTimers();

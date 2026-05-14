@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach } from "vitest";
-import { useFocusTrap } from "../../hooks/useFocusTrap";
+import { useFocusTrap } from "./useFocusTrap";
 
 function makeContainer(...tagNames: ("button" | "a" | "input")[]): HTMLDivElement {
   const container = document.createElement("div");

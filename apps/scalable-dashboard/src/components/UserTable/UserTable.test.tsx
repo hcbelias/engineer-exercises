@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import React from "react";
-import { UserTable } from "../components/UserTable";
+import { UserTable } from ".";
 
 describe("UserTable", () => {
   it("renders a scrollable container with a fixed height", () => {

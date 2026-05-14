@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { queryKeys } from "../queryKeys";
+import { queryKeys } from "./index";
 
 describe("queryKeys factory", () => {
   it('users.all() returns an array starting with "users"', () => {

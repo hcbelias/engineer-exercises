@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import React from "react";
-import { useUser } from "../../hooks/useUser";
-import type { GithubUser } from "../../api/types";
+import { useUser } from "./useUser";
+import type { GithubUser } from "../api/types";
 
 const MOCK_USER: GithubUser = {
   login: "torvalds",

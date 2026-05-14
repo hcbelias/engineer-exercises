@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import * as compute from "../../utils/compute";
-import { StatsPanel } from "../../components/StatsPanel";
-import type { Product } from "../../types";
+import * as compute from "../utils/compute";
+import { StatsPanel } from "./StatsPanel";
+import type { Product } from "../types";
 
 const makeProduct = (id: number): Product => ({
   id: `p${id}`,

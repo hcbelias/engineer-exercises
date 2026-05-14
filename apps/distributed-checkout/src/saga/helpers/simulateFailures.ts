@@ -2,17 +2,17 @@ import {
   setInventoryFailureRate,
   reserveInventory,
   releaseInventory,
-} from "../../src/services/inventory.service";
+} from "../../services/inventory.service";
 import {
   setPaymentFailureRate,
   chargePayment,
   refundPayment,
-} from "../../src/services/payment.service";
+} from "../../services/payment.service";
 import {
   setShippingFailureRate,
   createShipment,
   cancelShipment,
-} from "../../src/services/shipping.service";
+} from "../../services/shipping.service";
 
 // Re-export services with spy tracking for tests
 export {

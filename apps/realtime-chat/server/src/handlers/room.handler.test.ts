@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { roomHandler, rooms } from "../../src/handlers/room.handler";
+import { roomHandler, rooms } from "./room.handler";
 
 describe("roomHandler", () => {
   beforeEach(() => {

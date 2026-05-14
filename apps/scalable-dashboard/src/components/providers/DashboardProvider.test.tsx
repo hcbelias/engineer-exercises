@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, act } from "@testing-library/react";
 import React from "react";
-import { DashboardProvider, useDashboard } from "../components/providers/DashboardProvider";
+import { DashboardProvider, useDashboard } from "./DashboardProvider";
 
 // ---------------------------------------------------------------------------
 // Helper: a component that records how many times it renders and exposes

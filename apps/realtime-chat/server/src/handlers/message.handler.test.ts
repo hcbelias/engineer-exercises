@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { messageHandler, messageStore } from "../../src/handlers/message.handler";
+import { messageHandler, messageStore } from "./message.handler";
 
 const BASE_PAYLOAD = {
   roomId: "room-1",

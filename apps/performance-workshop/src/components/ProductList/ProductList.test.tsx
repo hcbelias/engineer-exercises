@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import * as compute from "../../utils/compute";
-import { ProductList } from "../../components/ProductList";
+import { ProductList } from ".";
 import type { FilterState, Product } from "../../types";
 
 const makeProduct = (id: number, inStock = true): Product => ({

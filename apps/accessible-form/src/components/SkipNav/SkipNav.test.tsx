@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { SkipNav } from "../../components/SkipNav";
+import { SkipNav } from ".";
 
 describe("SkipNav", () => {
   it("renders an anchor element", () => {

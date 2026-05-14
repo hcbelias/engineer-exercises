@@ -4,8 +4,8 @@
  */
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { withRetry } from "../../src/retry/withRetry";
-import { ServiceError } from "../../src/types";
+import { withRetry } from "./withRetry";
+import { ServiceError } from "../types";
 
 // Small delays so the suite runs in milliseconds
 const FAST: Partial<{ maxAttempts: number; baseDelayMs: number; maxDelayMs: number }> = {

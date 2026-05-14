@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import { ComboBox } from "../../components/ComboBox";
+import { ComboBox } from ".";
 
 const OPTIONS = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
 
