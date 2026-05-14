@@ -129,13 +129,38 @@ label {
   border-width: 0;
 }
 
-#skip-nav:focus {
+
+
+*:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px black;
+}
+
+/* fallback for browsers that don't support :focus-visible */
+@supports not selector(:focus-visible) {
+  *:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px black;
+  }
+}
+
+#skip-nav:focus-visible {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
   clip: auto;
   width: auto;
   height: auto;
   padding: 8px 16px;
   margin: 0;
   overflow: visible;
-  background-color: $color-primary;
+  white-space: normal;
+  background-color: #4f46e5;
   color: white;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
 }
