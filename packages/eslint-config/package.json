@@ -1,0 +1,21 @@
+{
+  "name": "@exercises/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js",
+    "./nextjs": "./nextjs.js",
+    "./node": "./node.js"
+  },
+  "peerDependencies": {
+    "@eslint/js": ">=10",
+    "@next/eslint-plugin-next": ">=15",
+    "eslint": ">=9",
+    "eslint-plugin-react": ">=7",
+    "eslint-plugin-react-hooks": ">=5",
+    "globals": ">=15",
+    "typescript-eslint": ">=8"
+  },
+  "type": "module"
+}

@@ -11,17 +11,14 @@ export function setShippingFailureRate(rate: number): void {
   failureRate = rate;
 }
 
-export async function createShipment(
-  orderId: string,
-  userId: string
-): Promise<ShipmentResult> {
+export async function createShipment(orderId: string, userId: string): Promise<ShipmentResult> {
   await new Promise((r) => setTimeout(r, 120));
 
   if (Math.random() < failureRate) {
     throw new ServiceError(
       "Shipping service temporarily unavailable",
       "shipping",
-      true // shipping failures are typically transient
+      true, // shipping failures are typically transient
     );
   }
 

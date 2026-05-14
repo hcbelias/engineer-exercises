@@ -17,10 +17,9 @@ describe("useThrottle", () => {
   });
 
   it("eventually settles to the latest value after rapid updates (trailing edge)", () => {
-    const { result, rerender } = renderHook(
-      ({ value, interval }) => useThrottle(value, interval),
-      { initialProps: { value: 0, interval: 100 } },
-    );
+    const { result, rerender } = renderHook(({ value, interval }) => useThrottle(value, interval), {
+      initialProps: { value: 0, interval: 100 },
+    });
 
     // Rapid series of updates
     rerender({ value: 1, interval: 100 });

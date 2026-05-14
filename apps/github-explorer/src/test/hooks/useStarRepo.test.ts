@@ -43,27 +43,18 @@ function makeQueryClient() {
 }
 
 function makeWrapper(queryClient: QueryClient) {
+  // eslint-disable-next-line react/display-name
   return ({ children }: { children: React.ReactNode }) =>
     React.createElement(QueryClientProvider, { client: queryClient }, children);
 }
 
 /** Seed the infinite-repos cache so the mutation has data to update */
-function seedReposCache(
-  queryClient: QueryClient,
-  owner: string,
-  repos: GithubRepo[]
-) {
+function seedReposCache(queryClient: QueryClient, owner: string, repos: GithubRepo[]) {
   const key = [...queryKeys.users.detail(owner), "repos"];
-  queryClient.setQueryData<InfiniteData<GithubRepo[]>>(
-    key,
-    makeInfiniteData([repos])
-  );
+  queryClient.setQueryData<InfiniteData<GithubRepo[]>>(key, makeInfiniteData([repos]));
 }
 
-function getReposFromCache(
-  queryClient: QueryClient,
-  owner: string
-): GithubRepo[] {
+function getReposFromCache(queryClient: QueryClient, owner: string): GithubRepo[] {
   const key = [...queryKeys.users.detail(owner), "repos"];
   const data = queryClient.getQueryData<InfiniteData<GithubRepo[]>>(key);
   return data?.pages.flat() ?? [];
@@ -128,9 +119,10 @@ describe("useStarRepo", () => {
 
   it("reverts viewer_has_starred to false in the cache when the server call fails", async () => {
     // Override starRepo to reject for this test
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { starRepo } = await import("../../api/github");
     vi.spyOn(await import("../../api/github"), "starRepo").mockRejectedValueOnce(
-      new Error("Network error")
+      new Error("Network error"),
     );
 
     const repo = makeRepo({ viewer_has_starred: false });

@@ -28,11 +28,9 @@ export function SearchPanel() {
 
   return (
     <section style={{ marginBottom: 40 }}>
-      <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 4 }}>
-        1. Search — add debounce
-      </h2>
+      <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 4 }}>1. Search — add debounce</h2>
       <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 12 }}>
-        Open the browser Performance tab and record while typing quickly. You'll see
+        Open the browser Performance tab and record while typing quickly. You&apos;ll see
         filterAndSortProducts called on every keystroke. Fix: useDebounce(query, 300).
       </p>
       <input

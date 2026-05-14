@@ -1,6 +1,7 @@
 You are a senior engineer reviewing the implementation of the exercise named: $ARGUMENTS
 
 First, read the README for that exercise to retrieve its Acceptance Criteria section. Match $ARGUMENTS to the correct path:
+
 - realtime-chat → apps/realtime-chat/README.md
 - github-explorer → apps/github-explorer/README.md
 - accessible-form → apps/accessible-form/README.md
@@ -14,6 +15,7 @@ Read the matched README and extract every item from the "Acceptance criteria" ch
 Then read the key implementation files for that exercise:
 
 **realtime-chat**: read all of these:
+
 - apps/realtime-chat/server/src/handlers/room.handler.ts
 - apps/realtime-chat/server/src/handlers/message.handler.ts
 - apps/realtime-chat/server/src/namespaces/chat.namespace.ts
@@ -24,6 +26,7 @@ Then read the key implementation files for that exercise:
 - apps/realtime-chat/client/src/hooks/usePresence.ts
 
 **github-explorer**: read all of these:
+
 - apps/github-explorer/src/queryClient.ts
 - apps/github-explorer/src/queryKeys/index.ts
 - apps/github-explorer/src/hooks/useUser.ts
@@ -32,6 +35,7 @@ Then read the key implementation files for that exercise:
 - apps/github-explorer/src/hooks/useStarRepo.ts
 
 **accessible-form**: read all of these:
+
 - apps/accessible-form/src/hooks/useFocusTrap.ts
 - apps/accessible-form/src/hooks/useFocusReturn.ts
 - apps/accessible-form/src/hooks/useAnnounce.ts
@@ -42,6 +46,7 @@ Then read the key implementation files for that exercise:
 - apps/accessible-form/src/App.tsx
 
 **scalable-dashboard**: read all of these:
+
 - apps/scalable-dashboard/src/components/charts/LazyChart.tsx
 - apps/scalable-dashboard/src/components/UserTable/index.tsx
 - apps/scalable-dashboard/src/components/providers/DashboardProvider.tsx
@@ -51,6 +56,7 @@ Then read the key implementation files for that exercise:
 - apps/scalable-dashboard/src/app/users/loading.tsx
 
 **distributed-checkout**: read all of these:
+
 - apps/distributed-checkout/src/saga/checkout.saga.ts
 - apps/distributed-checkout/src/retry/withRetry.ts
 - apps/distributed-checkout/src/idempotency/idempotency.store.ts
@@ -58,6 +64,7 @@ Then read the key implementation files for that exercise:
 - apps/distributed-checkout/test/checkout.test.ts
 
 **performance-workshop**: read all of these:
+
 - apps/performance-workshop/src/hooks/useDebounce.ts
 - apps/performance-workshop/src/hooks/useThrottle.ts
 - apps/performance-workshop/src/hooks/useDebouncedCallback.ts
@@ -70,6 +77,7 @@ Then read the key implementation files for that exercise:
 - apps/performance-workshop/src/components/ScrollTracker/index.tsx
 
 **bundle-workshop**: read all of these:
+
 - apps/bundle-workshop/src/App.tsx
 - apps/bundle-workshop/src/pages/DashboardPage.tsx
 - apps/bundle-workshop/src/pages/AnalyticsPage.tsx
@@ -77,11 +85,13 @@ Then read the key implementation files for that exercise:
 - apps/bundle-workshop/src/pages/SettingsPage.tsx
 
 After reading the relevant files, evaluate each acceptance criterion one by one. For each item:
+
 - State the criterion verbatim
 - Verdict: **PASS**, **FAIL**, or **PARTIAL**
 - Reasoning: cite the specific file and what you found (or what is still a TODO stub)
 
 End with:
+
 1. A count: X of Y criteria met
 2. The 1–2 highest-priority fixes to reach full completion (reference exact file paths)
 3. One thing that is already implemented particularly well

@@ -38,9 +38,9 @@ export function ProductList({
         3. Product list — add useMemo, useCallback & React.memo
       </h2>
       <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 12 }}>
-        Click "Add to cart" and watch the React DevTools Profiler: all{" "}
-        {Math.min(filtered.length, 100)} cards re-render on every click. Fix the
-        three PERF ISSUEs above to eliminate the wasted renders.
+        Click &quot;Add to cart&quot; and watch the React DevTools Profiler: all{" "}
+        {Math.min(filtered.length, 100)} cards re-render on every click. Fix the three PERF ISSUEs
+        above to eliminate the wasted renders.
       </p>
 
       <FilterBar filters={filters} onChange={onFiltersChange} />

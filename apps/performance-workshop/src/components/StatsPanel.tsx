@@ -23,8 +23,8 @@ export function StatsPanel({ products }: StatsPanelProps) {
         2. Stats panel — add useMemo
       </h2>
       <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 12 }}>
-        calculateStats does 3 passes over {fmt(products.length)} items. Open the
-        browser Performance tab: it fires on every render. Fix: wrap with useMemo.
+        calculateStats does 3 passes over {fmt(products.length)} items. Open the browser Performance
+        tab: it fires on every render. Fix: wrap with useMemo.
       </p>
 
       <div

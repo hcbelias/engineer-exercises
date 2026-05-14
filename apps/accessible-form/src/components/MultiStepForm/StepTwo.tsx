@@ -34,24 +34,19 @@ export function StepTwo({ data, onChange, errors, onNext, onBack }: Props) {
 
       <div className="field">
         <label>City *</label>
-        <input
-          type="text"
-          value={data.city}
-          onChange={(e) => onChange({ city: e.target.value })}
-        />
+        <input type="text" value={data.city} onChange={(e) => onChange({ city: e.target.value })} />
         {errors.city && <span className="error-message">{errors.city}</span>}
       </div>
 
       <div className="field">
         {/* TODO: ComboBox here instead of plain <select> once ComboBox is implemented */}
         <label>Country *</label>
-        <select
-          value={data.country}
-          onChange={(e) => onChange({ country: e.target.value })}
-        >
+        <select value={data.country} onChange={(e) => onChange({ country: e.target.value })}>
           <option value="">Select a country</option>
           {COUNTRIES.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c} value={c}>
+              {c}
+            </option>
           ))}
         </select>
         {errors.country && <span className="error-message">{errors.country}</span>}

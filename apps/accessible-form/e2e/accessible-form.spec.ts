@@ -34,7 +34,9 @@ test.describe("Tab panel keyboard navigation", () => {
     await expect(panels).not.toHaveCount(0);
   });
 
-  test("active tab has aria-selected=true and others have aria-selected=false", async ({ page }) => {
+  test("active tab has aria-selected=true and others have aria-selected=false", async ({
+    page,
+  }) => {
     await page.goto(URL);
 
     const selectedTabs = page.locator('[role="tab"][aria-selected="true"]');
@@ -103,7 +105,7 @@ test.describe("Multi-step form accessibility", () => {
 
     // Navigate to the tab containing the multi-step form
     const formTab = page.locator('[role="tab"]').filter({ hasText: /form/i });
-    if (await formTab.count() > 0) {
+    if ((await formTab.count()) > 0) {
       await formTab.click();
     }
 
@@ -125,8 +127,11 @@ test.describe("Modal accessibility", () => {
   test("modal has role=dialog and aria-modal=true", async ({ page }) => {
     await page.goto(URL);
 
-    const trigger = page.locator("button").filter({ hasText: /open|modal/i }).first();
-    if (await trigger.count() === 0) return; // skip if no modal trigger visible
+    const trigger = page
+      .locator("button")
+      .filter({ hasText: /open|modal/i })
+      .first();
+    if ((await trigger.count()) === 0) return; // skip if no modal trigger visible
     await trigger.click();
 
     const dialog = page.locator('[role="dialog"]');
@@ -138,8 +143,11 @@ test.describe("Modal accessibility", () => {
   test("focus moves inside modal when it opens", async ({ page }) => {
     await page.goto(URL);
 
-    const trigger = page.locator("button").filter({ hasText: /open|modal/i }).first();
-    if (await trigger.count() === 0) return;
+    const trigger = page
+      .locator("button")
+      .filter({ hasText: /open|modal/i })
+      .first();
+    if ((await trigger.count()) === 0) return;
     await trigger.click();
 
     const dialog = page.locator('[role="dialog"]');
@@ -147,17 +155,18 @@ test.describe("Modal accessibility", () => {
 
     // Focus should be inside the dialog
     const focusedElement = page.locator(":focus");
-    const isInsideDialog = await focusedElement.evaluate(
-      (el) => !!el.closest('[role="dialog"]')
-    );
+    const isInsideDialog = await focusedElement.evaluate((el) => !!el.closest('[role="dialog"]'));
     expect(isInsideDialog).toBe(true);
   });
 
   test("Escape closes the modal and returns focus to trigger", async ({ page }) => {
     await page.goto(URL);
 
-    const trigger = page.locator("button").filter({ hasText: /open|modal/i }).first();
-    if (await trigger.count() === 0) return;
+    const trigger = page
+      .locator("button")
+      .filter({ hasText: /open|modal/i })
+      .first();
+    if ((await trigger.count()) === 0) return;
     await trigger.click();
 
     await expect(page.locator('[role="dialog"]')).toBeVisible();
@@ -171,8 +180,11 @@ test.describe("Modal accessibility", () => {
   test("Tab key does not escape the modal", async ({ page }) => {
     await page.goto(URL);
 
-    const trigger = page.locator("button").filter({ hasText: /open|modal/i }).first();
-    if (await trigger.count() === 0) return;
+    const trigger = page
+      .locator("button")
+      .filter({ hasText: /open|modal/i })
+      .first();
+    if ((await trigger.count()) === 0) return;
     await trigger.click();
 
     const dialog = page.locator('[role="dialog"]');
@@ -181,9 +193,9 @@ test.describe("Modal accessibility", () => {
     // Tab through all focusable elements — focus must stay inside dialog
     for (let i = 0; i < 10; i++) {
       await page.keyboard.press("Tab");
-      const isInsideDialog = await page.locator(":focus").evaluate(
-        (el) => !!el.closest('[role="dialog"]')
-      );
+      const isInsideDialog = await page
+        .locator(":focus")
+        .evaluate((el) => !!el.closest('[role="dialog"]'));
       expect(isInsideDialog).toBe(true);
     }
   });
@@ -212,7 +224,7 @@ test.describe("ComboBox keyboard navigation", () => {
     await combobox.focus();
     await page.keyboard.press("ArrowDown"); // open
     await page.keyboard.press("ArrowDown"); // move to first option
-    await page.keyboard.press("Enter");     // select
+    await page.keyboard.press("Enter"); // select
 
     // After selection the combobox should reflect the chosen value
     const value = await combobox.inputValue();

@@ -24,9 +24,12 @@ export function useAnnounce() {
     };
   }, [regionRef]);
 
-  const announce = useCallback((_message: string, _politeness: "polite" | "assertive" = "polite") => {
-    // TODO
-  }, []);
+  const announce = useCallback(
+    (_message: string, _politeness: "polite" | "assertive" = "polite") => {
+      // TODO
+    },
+    [],
+  );
 
   return { announce };
 }

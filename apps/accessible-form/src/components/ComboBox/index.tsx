@@ -28,7 +28,7 @@ export function ComboBox({ label, options, value, onChange }: ComboBoxProps) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const filteredOptions = options.filter((opt) =>
-    opt.toLowerCase().includes(inputValue.toLowerCase())
+    opt.toLowerCase().includes(inputValue.toLowerCase()),
   );
 
   function handleKeyDown(_e: React.KeyboardEvent<HTMLInputElement>) {

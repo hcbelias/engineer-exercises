@@ -65,9 +65,7 @@ export function MultiStepForm() {
         ? (["firstName", "lastName", "email"] as const)
         : (["street", "city", "country"] as const);
     const stepSpecificErrors = Object.fromEntries(
-      relevantKeys
-        .filter((k) => stepErrors[k])
-        .map((k) => [k, stepErrors[k]])
+      relevantKeys.filter((k) => stepErrors[k]).map((k) => [k, stepErrors[k]]),
     ) as Partial<Record<keyof FormData, string>>;
 
     if (Object.keys(stepSpecificErrors).length > 0) {
@@ -91,7 +89,9 @@ export function MultiStepForm() {
       // TODO: use a live region or role="status" so AT announces the success message
       <div>
         <h2>✓ Form submitted successfully!</h2>
-        <p>Thank you, {data.firstName}. We'll be in touch at {data.email}.</p>
+        <p>
+          Thank you, {data.firstName}. We&apos;ll be in touch at {data.email}.
+        </p>
       </div>
     );
   }
@@ -100,12 +100,7 @@ export function MultiStepForm() {
     <div>
       <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
       {step === 1 && (
-        <StepOne
-          data={data}
-          onChange={handleChange}
-          errors={errors}
-          onNext={handleNext}
-        />
+        <StepOne data={data} onChange={handleChange} errors={errors} onNext={handleNext} />
       )}
       {step === 2 && (
         <StepTwo

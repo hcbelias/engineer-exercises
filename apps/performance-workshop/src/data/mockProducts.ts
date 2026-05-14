@@ -62,9 +62,9 @@ export const ALL_PRODUCTS: Product[] = Array.from({ length: 5000 }, (_, i) => {
   const noun = NOUNS[Math.floor(rand() * NOUNS.length)];
 
   const tagCount = Math.floor(rand() * 3) + 1;
-  const tags = [...new Set(
-    Array.from({ length: tagCount }, () => TAGS[Math.floor(rand() * TAGS.length)])
-  )];
+  const tags = [
+    ...new Set(Array.from({ length: tagCount }, () => TAGS[Math.floor(rand() * TAGS.length)])),
+  ];
 
   return {
     id: `prod-${i + 1}`,

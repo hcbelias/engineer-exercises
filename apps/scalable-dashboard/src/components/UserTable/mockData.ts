@@ -16,8 +16,30 @@ export interface User {
 
 const ROLES = ["Admin", "Editor", "Viewer", "Contributor", "Moderator"];
 const STATUSES: User["status"][] = ["active", "active", "active", "inactive", "suspended"];
-const FIRST_NAMES = ["Alice", "Bob", "Carlos", "Diana", "Eve", "Frank", "Grace", "Hiro", "Iris", "Jack"];
-const LAST_NAMES = ["Smith", "Jones", "Silva", "Chen", "Kim", "Müller", "Okonkwo", "Patel", "Torres", "White"];
+const FIRST_NAMES = [
+  "Alice",
+  "Bob",
+  "Carlos",
+  "Diana",
+  "Eve",
+  "Frank",
+  "Grace",
+  "Hiro",
+  "Iris",
+  "Jack",
+];
+const LAST_NAMES = [
+  "Smith",
+  "Jones",
+  "Silva",
+  "Chen",
+  "Kim",
+  "Müller",
+  "Okonkwo",
+  "Patel",
+  "Torres",
+  "White",
+];
 
 function seededRandom(seed: number): number {
   // Deterministic pseudo-random (LCG) — same seed always produces same sequence

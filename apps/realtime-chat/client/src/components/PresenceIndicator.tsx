@@ -26,9 +26,7 @@ export function PresenceIndicator({ users, isConnected }: Props) {
             {user.username}
           </li>
         ))}
-        {users.length === 0 && (
-          <li style={{ color: "#999", fontSize: 13 }}>No one else here</li>
-        )}
+        {users.length === 0 && <li style={{ color: "#999", fontSize: 13 }}>No one else here</li>}
       </ul>
     </aside>
   );

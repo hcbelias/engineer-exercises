@@ -24,7 +24,8 @@ export default function App() {
   // which propagates down to ProductList → ProductCard as a changed prop.
   // Even after wrapping ProductCard in React.memo, it will still re-render because
   // its onAddToCart prop fails the shallow equality check.
-  function handleAddToCart(id: string) { // PERF ISSUE: unstable function reference
+  function handleAddToCart(id: string) {
+    // PERF ISSUE: unstable function reference
     setCart((prev) => [...prev, id]);
   }
 
@@ -34,23 +35,17 @@ export default function App() {
         maxWidth: 900,
         margin: "0 auto",
         padding: "24px 24px 120px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         color: "#111827",
       }}
     >
       <header style={{ marginBottom: 40 }}>
-        <h1 style={{ fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>
-          Performance Workshop
-        </h1>
+        <h1 style={{ fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>Performance Workshop</h1>
         <p style={{ margin: 0, color: "#6b7280", fontSize: 14 }}>
-          Fix four categories of React performance issues:{" "}
-          <strong>debounce</strong> (search),{" "}
-          <strong>throttle</strong> (scroll),{" "}
-          <strong>useMemo</strong> (stats + filter), and{" "}
-          <strong>React.memo + useCallback</strong> (product cards).
-          Open React DevTools → Profiler and record while interacting to measure
-          the impact of each fix.
+          Fix four categories of React performance issues: <strong>debounce</strong> (search),{" "}
+          <strong>throttle</strong> (scroll), <strong>useMemo</strong> (stats + filter), and{" "}
+          <strong>React.memo + useCallback</strong> (product cards). Open React DevTools → Profiler
+          and record while interacting to measure the impact of each fix.
         </p>
         <p style={{ margin: "8px 0 0", fontSize: 13, color: "#9ca3af" }}>
           Cart: {cart.length} item{cart.length !== 1 ? "s" : ""}

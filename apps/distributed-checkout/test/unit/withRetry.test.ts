@@ -2,7 +2,7 @@
  * Isolated unit tests for withRetry.
  * These tests use no real services — just plain functions.
  */
-import { describe, it, before } from "node:test";
+import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { withRetry } from "../../src/retry/withRetry";
 import { ServiceError } from "../../src/types";
@@ -39,7 +39,7 @@ describe("withRetry — pure unit tests", () => {
           calls++;
           throw new ServiceError("transient", "svc", true);
         }, FAST),
-      ServiceError
+      ServiceError,
     );
     assert.equal(calls, 3, "should have tried exactly maxAttempts times");
   });
@@ -52,7 +52,7 @@ describe("withRetry — pure unit tests", () => {
           calls++;
           throw new ServiceError("card declined", "payment", false);
         }, FAST),
-      ServiceError
+      ServiceError,
     );
     assert.equal(calls, 1);
     assert.equal((thrown as ServiceError).message, "card declined");
@@ -60,12 +60,11 @@ describe("withRetry — pure unit tests", () => {
 
   it("retries non-ServiceError errors (unexpected failures treated as transient)", async () => {
     let calls = 0;
-    await assert.rejects(
-      () =>
-        withRetry(() => {
-          calls++;
-          throw new Error("random crash");
-        }, FAST)
+    await assert.rejects(() =>
+      withRetry(() => {
+        calls++;
+        throw new Error("random crash");
+      }, FAST),
     );
     // Non-ServiceError should be retried, so we expect maxAttempts calls
     assert.equal(calls, 3);
@@ -79,7 +78,7 @@ describe("withRetry — pure unit tests", () => {
           attempt++;
           throw new ServiceError(`attempt ${attempt} failed`, "svc", true);
         }, FAST),
-      ServiceError
+      ServiceError,
     );
     assert.equal((thrown as ServiceError).message, "attempt 3 failed");
   });
@@ -104,9 +103,9 @@ describe("withRetry — pure unit tests", () => {
             calls++;
             throw new ServiceError("t", "s", true);
           },
-          { maxAttempts: 5, baseDelayMs: 1, maxDelayMs: 2 }
+          { maxAttempts: 5, baseDelayMs: 1, maxDelayMs: 2 },
         ),
-      ServiceError
+      ServiceError,
     );
     assert.equal(calls, 5);
   });

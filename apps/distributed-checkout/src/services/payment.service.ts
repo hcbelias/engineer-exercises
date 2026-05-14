@@ -14,18 +14,16 @@ export function setPaymentFailureRate(rate: number): void {
 export async function chargePayment(
   orderId: string,
   userId: string,
-  amountUsd: number
+  amountUsd: number,
 ): Promise<ChargeResult> {
   await new Promise((r) => setTimeout(r, 150)); // payments are slower
 
   if (Math.random() < failureRate) {
     const isTransient = Math.random() < 0.3; // payment failures are mostly non-retryable
     throw new ServiceError(
-      isTransient
-        ? "Payment gateway timeout"
-        : `Payment declined for user ${userId}`,
+      isTransient ? "Payment gateway timeout" : `Payment declined for user ${userId}`,
       "payment",
-      isTransient
+      isTransient,
     );
   }
 

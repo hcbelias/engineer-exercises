@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getUser } from "../api/github";
 import { queryKeys } from "../queryKeys";
 import type { GithubUser } from "../api/types";
@@ -20,7 +21,9 @@ import type { GithubUser } from "../api/types";
 export function useUser(username: string | null) {
   return useQuery<GithubUser>({
     // TODO: queryKey, queryFn, enabled
-    queryKey: username ? queryKeys.users.detail(username) : ([] as unknown as ReturnType<typeof queryKeys.users.detail>),
+    queryKey: username
+      ? queryKeys.users.detail(username)
+      : ([] as unknown as ReturnType<typeof queryKeys.users.detail>),
     queryFn: () => {
       throw new Error("TODO: implement useUser queryFn");
     },

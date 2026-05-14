@@ -10,49 +10,58 @@ This exercise forces you to understand and implement these patterns from first p
 
 ## What's pre-scaffolded
 
-| File | Status |
-|------|--------|
-| `src/styles/global.css` | Done — `:focus-visible`, `.sr-only`, CSS custom properties |
-| `src/App.tsx` | Done (broken) — tab panel uses `<div onClick>`, needs ARIA conversion |
-| `src/components/MultiStepForm/index.tsx` | Done — step controller with validation |
-| `src/components/MultiStepForm/StepOne/Two/Three.tsx` | Done (broken) — valid HTML, **no ARIA attributes** |
-| `src/components/Modal/ModalTrigger.tsx` | Done — trigger button |
-| `src/components/ComboBox/Option.tsx` | Done — option item with `role="option"` |
-| `src/hooks/useFocusTrap.ts` | Partial — structure + focusable selector, **Tab cycling is TODO** |
-| `src/hooks/useFocusReturn.ts` | Stub — **bodies are TODO** |
-| `src/hooks/useAnnounce.ts` | Stub — **bodies are TODO** |
-| `src/components/SkipNav/index.tsx` | Stub — **TODO** |
-| `src/components/Modal/index.tsx` | Partial — portal + dialog shell, **focus management is TODO** |
-| `src/components/ComboBox/index.tsx` | Partial — filtering works, **ARIA + keyboard nav is TODO** |
-| `src/components/MultiStepForm/ProgressBar.tsx` | Stub — **TODO** |
+| File                                                 | Status                                                                |
+| ---------------------------------------------------- | --------------------------------------------------------------------- |
+| `src/styles/global.css`                              | Done — `:focus-visible`, `.sr-only`, CSS custom properties            |
+| `src/App.tsx`                                        | Done (broken) — tab panel uses `<div onClick>`, needs ARIA conversion |
+| `src/components/MultiStepForm/index.tsx`             | Done — step controller with validation                                |
+| `src/components/MultiStepForm/StepOne/Two/Three.tsx` | Done (broken) — valid HTML, **no ARIA attributes**                    |
+| `src/components/Modal/ModalTrigger.tsx`              | Done — trigger button                                                 |
+| `src/components/ComboBox/Option.tsx`                 | Done — option item with `role="option"`                               |
+| `src/hooks/useFocusTrap.ts`                          | Partial — structure + focusable selector, **Tab cycling is TODO**     |
+| `src/hooks/useFocusReturn.ts`                        | Stub — **bodies are TODO**                                            |
+| `src/hooks/useAnnounce.ts`                           | Stub — **bodies are TODO**                                            |
+| `src/components/SkipNav/index.tsx`                   | Stub — **TODO**                                                       |
+| `src/components/Modal/index.tsx`                     | Partial — portal + dialog shell, **focus management is TODO**         |
+| `src/components/ComboBox/index.tsx`                  | Partial — filtering works, **ARIA + keyboard nav is TODO**            |
+| `src/components/MultiStepForm/ProgressBar.tsx`       | Stub — **TODO**                                                       |
 
 ## Your TODOs
 
 ### 1. Skip navigation link — `src/components/SkipNav/index.tsx`
+
 Implement a skip navigation link that allows keyboard users to bypass the page header and jump directly to the main content. It should be visually hidden until focused, and must not cause layout shifts when it appears.
 
 ### 2. Tab panel — `src/App.tsx`
+
 The current tab panel uses non-semantic `<div>` elements with click handlers. Convert it to a proper accessible tab pattern so that keyboard users can navigate between tabs and screen readers correctly identify the selected tab and its associated content panel.
 
 ### 3. Progress bar — `src/components/MultiStepForm/ProgressBar.tsx`
+
 Implement the progress bar so that assistive technologies can communicate the user's current position in the multi-step form — including the current step, total steps, and which step is active.
 
 ### 4. Form fields — `StepOne.tsx`, `StepTwo.tsx`, `StepThree.tsx`
+
 Wire up proper accessible labels, required-field indicators, and error states for every form input. Errors must be announced by screen readers without moving focus away from the field that caused them. The submit button should communicate when the form is being submitted.
 
 ### 5. `useFocusTrap.ts`
+
 Implement the focus trap hook so that keyboard focus is constrained to the container it wraps — Tab and Shift+Tab must cycle through the container's focusable elements and never escape to the rest of the page.
 
 ### 6. `useFocusReturn.ts`
+
 Implement the two-function API for saving and restoring focus. When a modal or overlay closes, focus should return to whichever element triggered it.
 
 ### 7. `useAnnounce.ts`
+
 Implement a hook that allows components to push announcements to screen readers without moving focus. Messages should be delivered politely and the underlying live region must be cleaned up when the consumer unmounts.
 
 ### 8. Modal — `src/components/Modal/index.tsx`
+
 Complete the modal so that it satisfies the ARIA dialog pattern: focus moves inside on open, is trapped while open, and returns to the trigger on close. The modal must be dismissible via keyboard. Content behind the modal should be hidden from assistive technology while it is open.
 
 ### 9. ComboBox — `src/components/ComboBox/index.tsx`
+
 Implement full keyboard and screen reader support for the combobox. Users must be able to open the list, navigate options, select with Enter, and close with Escape — all without a mouse. The currently highlighted option must be announced as focus moves through the list.
 
 ## How to run
@@ -72,6 +81,7 @@ App starts on **http://localhost:3004**
 **Keyboard only**: Unplug your mouse. Can you complete the form, open/close the modal, and use the combobox without touching the mouse?
 
 **Screen reader** (macOS):
+
 1. System Settings → Accessibility → VoiceOver → turn on (or Cmd+F5)
 2. Use VO+Right to navigate, VO+Space to activate
 3. Verify: form errors are announced without moving focus; modal announces its title on open; progress bar reads "Step 2 of 3"

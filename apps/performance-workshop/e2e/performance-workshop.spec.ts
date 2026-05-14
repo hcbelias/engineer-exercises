@@ -6,13 +6,19 @@ test.describe("useDebounce — SearchPanel", () => {
   test("filter fires once per typing pause, not on every keystroke", async ({ page }) => {
     await page.goto(URL);
 
-    const searchInput = page.locator('input[placeholder*="search" i], input[type="search"], input[placeholder*="Search" i]').first();
+    const searchInput = page
+      .locator(
+        'input[placeholder*="search" i], input[type="search"], input[placeholder*="Search" i]',
+      )
+      .first();
     await expect(searchInput).toBeVisible();
 
     // Intercept re-renders by counting how many times the results list changes.
     // We track network requests or DOM mutations as a proxy.
     // Simpler approach: type quickly and verify the result count updates only once after pause.
-    const initialResultCount = await page.locator('[data-testid="product-card"], [class*="product-card"], [class*="ProductCard"]').count();
+    const _initialResultCount = await page
+      .locator('[data-testid="product-card"], [class*="product-card"], [class*="ProductCard"]')
+      .count();
 
     // Type a query character by character quickly (< 300ms between chars)
     await searchInput.focus();
@@ -26,7 +32,9 @@ test.describe("useDebounce — SearchPanel", () => {
     await page.waitForTimeout(400);
 
     // Results should now reflect "laptop" query
-    const filteredCount = await page.locator('[data-testid="product-card"], [class*="product-card"], [class*="ProductCard"]').count();
+    const filteredCount = await page
+      .locator('[data-testid="product-card"], [class*="product-card"], [class*="ProductCard"]')
+      .count();
     // With debounce working correctly, we get exactly one filter pass per pause
     // If debounce is NOT implemented, the count may be the same (coincidence) but the
     // real verification is that it settled correctly after one pause
@@ -35,7 +43,9 @@ test.describe("useDebounce — SearchPanel", () => {
     // Clear and verify list restores
     await searchInput.clear();
     await page.waitForTimeout(400);
-    const restoredCount = await page.locator('[data-testid="product-card"], [class*="product-card"], [class*="ProductCard"]').count();
+    const restoredCount = await page
+      .locator('[data-testid="product-card"], [class*="product-card"], [class*="ProductCard"]')
+      .count();
     expect(restoredCount).toBeGreaterThanOrEqual(filteredCount);
   });
 });
@@ -45,15 +55,21 @@ test.describe("useThrottle — ScrollTracker", () => {
     await page.goto(URL);
 
     // The ScrollTracker renders a fixed overlay showing scroll Y position
-    const tracker = page.locator('[class*="scroll"], [class*="ScrollTracker"], [data-testid="scroll-tracker"]').first();
+    const tracker = page
+      .locator('[class*="scroll"], [class*="ScrollTracker"], [data-testid="scroll-tracker"]')
+      .first();
     await expect(tracker).toBeAttached();
   });
 
-  test("scroll tracker updates at most 10 times per second during fast scroll", async ({ page }) => {
+  test("scroll tracker updates at most 10 times per second during fast scroll", async ({
+    page,
+  }) => {
     await page.goto(URL);
 
-    const tracker = page.locator('[class*="scroll"], [class*="ScrollTracker"], [data-testid="scroll-tracker"]').first();
-    if (await tracker.count() === 0) return;
+    const tracker = page
+      .locator('[class*="scroll"], [class*="ScrollTracker"], [data-testid="scroll-tracker"]')
+      .first();
+    if ((await tracker.count()) === 0) return;
 
     // Count how many distinct values appear in the tracker over 1 second of scrolling
     const values: string[] = [];
@@ -84,7 +100,9 @@ test.describe("useMemo — StatsPanel", () => {
     await page.goto(URL);
 
     // Stats panel should be visible with some numeric content
-    const statsPanel = page.locator('[class*="stats"], [class*="Stats"], [data-testid="stats-panel"]').first();
+    const statsPanel = page
+      .locator('[class*="stats"], [class*="Stats"], [data-testid="stats-panel"]')
+      .first();
     await expect(statsPanel).toBeAttached();
     const text = await statsPanel.textContent();
     expect(text).toMatch(/\d/); // contains numbers
@@ -95,14 +113,17 @@ test.describe("React.memo — ProductCard", () => {
   test("adding to cart does not visually break the product list", async ({ page }) => {
     await page.goto(URL);
 
-    const addButton = page.locator('button').filter({ hasText: /add to cart/i }).first();
-    if (await addButton.count() === 0) return;
+    const addButton = page
+      .locator("button")
+      .filter({ hasText: /add to cart/i })
+      .first();
+    if ((await addButton.count()) === 0) return;
 
     await addButton.click();
 
     // After adding, button state should change (e.g., "In Cart" or disabled)
     // The other cards should still be visible and functional
-    const remainingAddButtons = page.locator('button').filter({ hasText: /add to cart/i });
+    const remainingAddButtons = page.locator("button").filter({ hasText: /add to cart/i });
     const count = await remainingAddButtons.count();
     expect(count).toBeGreaterThan(0); // other cards still have add buttons
   });

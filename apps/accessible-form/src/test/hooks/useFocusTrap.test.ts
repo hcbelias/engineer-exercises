@@ -14,9 +14,7 @@ function makeContainer(...tagNames: ("button" | "a" | "input")[]): HTMLDivElemen
 }
 
 function fireTab(shiftKey = false) {
-  document.dispatchEvent(
-    new KeyboardEvent("keydown", { key: "Tab", shiftKey, bubbles: true })
-  );
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", shiftKey, bubbles: true }));
 }
 
 beforeEach(() => {

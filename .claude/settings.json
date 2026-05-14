@@ -5,6 +5,7 @@
       "Bash(pnpm turbo *)",
       "Bash(pnpm add *)",
       "Bash(pnpm --filter *)",
+      "Bash(sed -n *)",
       "Bash(wait)"
     ]
   }

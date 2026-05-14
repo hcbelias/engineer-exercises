@@ -25,15 +25,21 @@ export function StepThree({ data, onBack, onSubmit, isSubmitting }: Props) {
 
       <dl style={{ lineHeight: 2 }}>
         <dt>Name</dt>
-        <dd>{data.firstName} {data.lastName}</dd>
+        <dd>
+          {data.firstName} {data.lastName}
+        </dd>
         <dt>Email</dt>
         <dd>{data.email}</dd>
         <dt>Address</dt>
-        <dd>{data.street}, {data.city}, {data.country}</dd>
+        <dd>
+          {data.street}, {data.city}, {data.country}
+        </dd>
       </dl>
 
       <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
-        <button onClick={onBack} disabled={isSubmitting}>← Back</button>
+        <button onClick={onBack} disabled={isSubmitting}>
+          ← Back
+        </button>
         <button
           onClick={onSubmit}
           disabled={isSubmitting}

@@ -13,10 +13,7 @@ export function setInventoryFailureRate(rate: number): void {
   failureRate = rate;
 }
 
-export async function reserveInventory(
-  orderId: string,
-  items: Item[]
-): Promise<ReservationResult> {
+export async function reserveInventory(orderId: string, items: Item[]): Promise<ReservationResult> {
   await new Promise((r) => setTimeout(r, 100)); // simulate network
 
   if (Math.random() < failureRate) {
@@ -27,7 +24,7 @@ export async function reserveInventory(
         ? "Inventory service temporarily unavailable"
         : `Insufficient stock for order ${orderId}`,
       "inventory",
-      isTransient
+      isTransient,
     );
   }
 

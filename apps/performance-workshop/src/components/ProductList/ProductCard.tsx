@@ -28,7 +28,16 @@ export function ProductCard({ product, inCart, onAddToCart }: ProductCardProps) 
       }}
     >
       <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ margin: 0, fontWeight: 600, fontSize: 14, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+        <p
+          style={{
+            margin: 0,
+            fontWeight: 600,
+            fontSize: 14,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
           {product.name}
         </p>
         <p style={{ margin: "2px 0 0", fontSize: 12, color: "#6b7280" }}>
@@ -52,10 +61,14 @@ export function ProductCard({ product, inCart, onAddToCart }: ProductCardProps) 
         </p>
       </div>
       <div style={{ textAlign: "right", flexShrink: 0 }}>
-        <p style={{ margin: 0, fontWeight: 700, fontSize: 16 }}>
-          ${product.price.toFixed(2)}
-        </p>
-        <p style={{ margin: "2px 0 6px", fontSize: 11, color: product.inStock ? "#16a34a" : "#dc2626" }}>
+        <p style={{ margin: 0, fontWeight: 700, fontSize: 16 }}>${product.price.toFixed(2)}</p>
+        <p
+          style={{
+            margin: "2px 0 6px",
+            fontSize: 11,
+            color: product.inStock ? "#16a34a" : "#dc2626",
+          }}
+        >
           {product.inStock ? "In stock" : "Out of stock"}
         </p>
         <button

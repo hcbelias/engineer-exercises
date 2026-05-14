@@ -1,11 +1,7 @@
 import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
-import type {
-  ServerToClientEvents,
-  ClientToServerEvents,
-  SocketData,
-} from "./types";
+import type { ServerToClientEvents, ClientToServerEvents, SocketData } from "./types";
 import { registerChatNamespace } from "./namespaces/chat.namespace";
 import { registerPresenceNamespace } from "./namespaces/presence.namespace";
 

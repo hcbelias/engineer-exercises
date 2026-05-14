@@ -29,8 +29,8 @@ export function usePresence(_username: string): {
   onlineUsers: User[];
   isConnected: boolean;
 } {
-  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-  const [isConnected, setIsConnected] = useState(false);
+  const [onlineUsers, _setOnlineUsers] = useState<User[]>([]);
+  const [isConnected, _setIsConnected] = useState(false);
 
   useEffect(() => {
     // TODO

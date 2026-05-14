@@ -15,7 +15,14 @@ import {
 } from "../../src/services/shipping.service";
 
 // Re-export services with spy tracking for tests
-export { reserveInventory, releaseInventory, chargePayment, refundPayment, createShipment, cancelShipment };
+export {
+  reserveInventory,
+  releaseInventory,
+  chargePayment,
+  refundPayment,
+  createShipment,
+  cancelShipment,
+};
 
 // Helpers for common failure scenarios
 export function setAllServicesHealthy() {
@@ -43,10 +50,7 @@ export function makeShippingAlwaysFail() {
 }
 
 // Make a service fail the first N times then succeed
-export function makeServiceFailNTimes(
-  service: "inventory" | "payment" | "shipping",
-  n: number
-) {
+export function makeServiceFailNTimes(service: "inventory" | "payment" | "shipping", n: number) {
   let calls = 0;
   const setFn =
     service === "inventory"

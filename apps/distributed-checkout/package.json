@@ -8,12 +8,17 @@
     "start": "node dist/index.js",
     "test": "node --import tsx --test test/**/*.test.ts test/unit/**/*.test.ts",
     "type-check": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "express": "^4.21.2"
   },
   "devDependencies": {
+    "@exercises/eslint-config": "workspace:^",
+    "@exercises/prettier-config": "workspace:^",
     "@exercises/tsconfig": "workspace:*",
     "@types/express": "^4.17.21",
     "@types/node": "^22.10.5",
@@ -21,5 +26,7 @@
     "supertest": "^7.2.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
-  }
+  },
+  "prettier": "@exercises/prettier-config",
+  "type": "module"
 }

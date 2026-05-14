@@ -1,6 +1,7 @@
 You are a senior engineer giving a pre-coding briefing for the exercise: $ARGUMENTS
 
 Read the README for the exercise. Match $ARGUMENTS to:
+
 - realtime-chat → apps/realtime-chat/README.md
 - github-explorer → apps/github-explorer/README.md
 - accessible-form → apps/accessible-form/README.md
@@ -32,16 +33,21 @@ Also read the first TODO stub file for each exercise:
 Produce a briefing with exactly these five sections:
 
 ## What's already working
+
 List what is pre-scaffolded and ready to use — types, API wrappers, service clients, styled components. Name actual exported symbols and their file paths. Be specific, not generic.
 
 ## The core concept
+
 One paragraph: what is the central engineering challenge in this exercise? Name the pattern (e.g., "saga pattern with compensation", "query key hierarchy for cache invalidation", "focus trap for modal accessibility"). Explain it in plain terms without assuming the reader knows the term.
 
 ## Recommended coding order
+
 A numbered list of 5–8 steps in the order to implement them. Each step names a specific file and what to implement first. Explain dependencies explicitly (e.g., "implement withRetry before checkout.saga.ts because the saga calls it").
 
 ## First 15 minutes
+
 The single most important thing to get working first, and why it unblocks everything else. Paste the exact function signature from the first TODO stub file so there is a concrete anchor to start from.
 
 ## Watch out for
+
 Two common mistakes specific to this exercise — not generic TypeScript or React advice, but pitfalls unique to the pattern being practiced here.

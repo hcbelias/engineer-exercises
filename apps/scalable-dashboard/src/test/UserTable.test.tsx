@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React from "react";
 import { UserTable } from "../components/UserTable";
 
@@ -9,7 +9,7 @@ describe("UserTable", () => {
 
     // The scroll container should have overflow:auto and a fixed height
     const scrollContainer = container.querySelector(
-      '[style*="overflow: auto"], [style*="overflow:auto"]'
+      '[style*="overflow: auto"], [style*="overflow:auto"]',
     );
     expect(scrollContainer).toBeTruthy();
 
@@ -29,7 +29,7 @@ describe("UserTable", () => {
     //
     // We look for children of the scroll container (the first overflow:auto div).
     const scrollContainer = container.querySelector(
-      '[style*="overflow: auto"], [style*="overflow:auto"]'
+      '[style*="overflow: auto"], [style*="overflow:auto"]',
     );
     expect(scrollContainer).toBeTruthy();
 

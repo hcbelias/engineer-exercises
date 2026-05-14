@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 
 // TODO: Implement useDebouncedCallback
 //
@@ -24,20 +24,21 @@ export function useDebouncedCallback<T extends (...args: never[]) => unknown>(
 ): (...args: Parameters<T>) => void {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fnRef = useRef<T>(fn);
-  fnRef.current = fn;
+
+  useLayoutEffect(() => {
+    fnRef.current = fn;
+  });
 
   useEffect(() => {
+    const timer = timerRef;
     return () => {
-      if (timerRef.current !== null) clearTimeout(timerRef.current);
+      if (timer.current !== null) clearTimeout(timer.current);
     };
   }, []);
 
   // TODO: replace the body below with a properly debounced implementation.
   // Currently this calls fn immediately on every invocation — no debounce at all.
-  return useCallback(
-    (...args: Parameters<T>) => {
-      fnRef.current(...args); // PERF ISSUE: fires immediately, no debounce
-    },
-    [],
-  );
+  return useCallback((...args: Parameters<T>) => {
+    fnRef.current(...args); // PERF ISSUE: fires immediately, no debounce
+  }, []);
 }

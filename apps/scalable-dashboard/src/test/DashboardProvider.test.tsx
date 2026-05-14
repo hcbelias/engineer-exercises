@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, act } from "@testing-library/react";
-import React, { useRef } from "react";
+import React from "react";
 import { DashboardProvider, useDashboard } from "../components/providers/DashboardProvider";
 
 // ---------------------------------------------------------------------------
@@ -50,7 +50,7 @@ describe("DashboardProvider re-render isolation", () => {
       <DashboardProvider>
         <Controller />
         <ThemeConsumer onRender={themeRenders} />
-      </DashboardProvider>
+      </DashboardProvider>,
     );
 
     const rendersBefore = themeRenders.mock.calls.length;
@@ -81,7 +81,7 @@ describe("DashboardProvider re-render isolation", () => {
       <DashboardProvider>
         <Controller />
         <UnreadConsumer onRender={unreadRenders} />
-      </DashboardProvider>
+      </DashboardProvider>,
     );
 
     const rendersBefore = unreadRenders.mock.calls.length;
@@ -111,7 +111,7 @@ describe("DashboardProvider re-render isolation", () => {
       <DashboardProvider>
         <Controller />
         <ThemeConsumer onRender={themeRenders} />
-      </DashboardProvider>
+      </DashboardProvider>,
     );
 
     const rendersBefore = themeRenders.mock.calls.length;
@@ -140,7 +140,7 @@ describe("DashboardProvider re-render isolation", () => {
       <DashboardProvider>
         <Controller />
         <UnreadConsumer onRender={unreadRenders} />
-      </DashboardProvider>
+      </DashboardProvider>,
     );
 
     const rendersBefore = unreadRenders.mock.calls.length;

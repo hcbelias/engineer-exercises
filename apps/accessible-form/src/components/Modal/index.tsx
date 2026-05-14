@@ -38,17 +38,12 @@ export function Modal({ isOpen, onClose, title, children }: Props) {
   return createPortal(
     // TODO: add overlay and wire up correct ARIA attributes on the dialog
     <div>
-      <div
-        ref={containerRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-      >
+      <div ref={containerRef} role="dialog" aria-modal="true" aria-labelledby={titleId}>
         <h2 id={titleId}>{title}</h2>
         {children}
         <button onClick={onClose}>Close</button>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

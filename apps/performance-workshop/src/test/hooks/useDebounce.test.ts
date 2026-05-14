@@ -17,10 +17,9 @@ describe("useDebounce", () => {
   });
 
   it("does NOT update before the delay has elapsed", () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: "initial", delay: 300 } },
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: "initial", delay: 300 },
+    });
 
     rerender({ value: "updated", delay: 300 });
 
@@ -33,10 +32,9 @@ describe("useDebounce", () => {
   });
 
   it("updates after the delay has fully elapsed", () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: "initial", delay: 300 } },
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: "initial", delay: 300 },
+    });
 
     rerender({ value: "updated", delay: 300 });
 
@@ -48,10 +46,9 @@ describe("useDebounce", () => {
   });
 
   it("resets the timer when value changes before the delay fires", () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: "initial", delay: 300 } },
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: "initial", delay: 300 },
+    });
 
     // First change
     rerender({ value: "first", delay: 300 });

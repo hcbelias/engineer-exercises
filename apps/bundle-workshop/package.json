@@ -8,13 +8,18 @@
     "build:report": "tsc -b && vite build --mode report",
     "type-check": "tsc --noEmit",
     "preview": "vite preview --port 3008",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@exercises/eslint-config": "workspace:^",
+    "@exercises/prettier-config": "workspace:^",
     "@exercises/tsconfig": "workspace:*",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
@@ -23,5 +28,7 @@
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
     "vitest": "^4.1.6"
-  }
+  },
+  "prettier": "@exercises/prettier-config",
+  "type": "module"
 }

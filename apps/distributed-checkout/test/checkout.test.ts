@@ -10,9 +10,6 @@ import {
   makePaymentAlwaysFail,
   makeShippingAlwaysFail,
 } from "./helpers/simulateFailures";
-import { setInventoryFailureRate } from "../src/services/inventory.service";
-import { setPaymentFailureRate } from "../src/services/payment.service";
-import { setShippingFailureRate } from "../src/services/shipping.service";
 
 const SAMPLE_REQUEST = {
   orderId: "order_test_001",
@@ -37,7 +34,7 @@ describe("withRetry", () => {
         if (attempts < 3) throw new ServiceError("transient", "test", true);
         return Promise.resolve("success");
       },
-      { maxAttempts: 3, baseDelayMs: 1, maxDelayMs: 5 }
+      { maxAttempts: 3, baseDelayMs: 1, maxDelayMs: 5 },
     );
     assert.equal(result, "success");
     assert.equal(attempts, 3);
@@ -52,9 +49,9 @@ describe("withRetry", () => {
             attempts++;
             throw new ServiceError("card declined", "payment", false);
           },
-          { maxAttempts: 3, baseDelayMs: 1, maxDelayMs: 5 }
+          { maxAttempts: 3, baseDelayMs: 1, maxDelayMs: 5 },
         ),
-      ServiceError
+      ServiceError,
     );
     assert.equal(attempts, 1); // should have stopped after first attempt
   });
@@ -68,9 +65,9 @@ describe("withRetry", () => {
             attempts++;
             throw new ServiceError("always fails", "test", true);
           },
-          { maxAttempts: 3, baseDelayMs: 1, maxDelayMs: 5 }
+          { maxAttempts: 3, baseDelayMs: 1, maxDelayMs: 5 },
         ),
-      ServiceError
+      ServiceError,
     );
     assert.equal(attempts, 3);
     // The last error thrown should be propagated
@@ -113,7 +110,7 @@ describe("executeCheckout saga — failure scenarios", () => {
     makePaymentAlwaysFail();
     const result = await executeCheckout(
       { ...SAMPLE_REQUEST, orderId: "order_pay_fail" },
-      "corr-003"
+      "corr-003",
     );
     assert.equal(result.success, false);
     if (!result.success) {
@@ -130,7 +127,7 @@ describe("executeCheckout saga — failure scenarios", () => {
     makeShippingAlwaysFail();
     const result = await executeCheckout(
       { ...SAMPLE_REQUEST, orderId: "order_ship_fail" },
-      "corr-004"
+      "corr-004",
     );
     assert.equal(result.success, false);
     if (!result.success) {

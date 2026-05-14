@@ -33,7 +33,7 @@ export function useFocusTrap() {
 
     // TODO: implement Tab / Shift+Tab cycling within the container
     const focusable = Array.from(
-      containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS)
+      containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
     ).filter((el) => !el.closest("[hidden]"));
 
     if (focusable.length === 0) return;

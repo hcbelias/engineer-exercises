@@ -1,5 +1,3 @@
-import { useState, useEffect, useRef } from "react";
-
 // TODO: Implement useThrottle
 //
 // Requirements:
@@ -16,7 +14,5 @@ import { useState, useEffect, useRef } from "react";
 export function useThrottle<T>(value: T, interval: number): T {
   // TODO: replace with a real implementation
   void interval;
-  const lastRef = useRef<T>(value);
-  lastRef.current = value;
   return value;
 }

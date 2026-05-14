@@ -65,9 +65,9 @@ describe("bundle output", () => {
         DIST,
         files
           .map((f) => ({ name: f, size: statSync(join(DIST, f)).size }))
-          .sort((a, b) => b.size - a.size)[0].name
+          .sort((a, b) => b.size - a.size)[0].name,
       ),
-      "utf-8"
+      "utf-8",
     );
     // geoData is defined in the geo module; if code-splitting works correctly
     // it should not appear in the initial/main chunk

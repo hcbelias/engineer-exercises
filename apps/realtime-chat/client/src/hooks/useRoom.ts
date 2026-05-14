@@ -30,9 +30,9 @@ export function useRoom(_roomId: string | null): {
   history: Message[];
   createRoom: (name: string) => void;
 } {
-  const [room, setRoom] = useState<Room | null>(null);
-  const [rooms, setRooms] = useState<Room[]>([]);
-  const [history, setHistory] = useState<Message[]>([]);
+  const [room, _setRoom] = useState<Room | null>(null);
+  const [rooms, _setRooms] = useState<Room[]>([]);
+  const [history, _setHistory] = useState<Message[]>([]);
 
   useEffect(() => {
     // TODO: join/leave logic

@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import { idempotencyStore } from "../idempotency/idempotency.store";
 import { executeCheckout } from "../saga/checkout.saga";
-import { ServiceError } from "../types";
 import { logger } from "../observability/logger";
 import crypto from "node:crypto";
 
@@ -67,7 +66,7 @@ export async function checkoutHandler(req: Request, res: Response): Promise<void
 
   try {
     const result = await idempotencyStore.getOrExecute(idempotencyKey, () =>
-      executeCheckout({ orderId, userId, items }, correlationId)
+      executeCheckout({ orderId, userId, items }, correlationId),
     );
 
     // TODO: handle saga result

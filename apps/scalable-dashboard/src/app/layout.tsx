@@ -19,14 +19,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, fontFamily: "system-ui, sans-serif", display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <body
+        style={{
+          margin: 0,
+          fontFamily: "system-ui, sans-serif",
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
         <DashboardProvider>
           <Header />
           <div style={{ display: "flex", flex: 1 }}>
             <Sidebar />
-            <main style={{ flex: 1, padding: 24 }}>
-              {children}
-            </main>
+            <main style={{ flex: 1, padding: 24 }}>{children}</main>
           </div>
         </DashboardProvider>
       </body>

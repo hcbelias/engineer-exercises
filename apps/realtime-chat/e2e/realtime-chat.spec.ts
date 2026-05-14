@@ -6,7 +6,9 @@ async function joinAsUser(context: BrowserContext, username: string): Promise<Pa
   const page = await context.newPage();
   await page.goto(CLIENT_URL);
   // If there is a username input / prompt on load, fill it
-  const usernameInput = page.locator('input[placeholder*="name" i], input[placeholder*="username" i]').first();
+  const usernameInput = page
+    .locator('input[placeholder*="name" i], input[placeholder*="username" i]')
+    .first();
   if (await usernameInput.isVisible({ timeout: 2000 }).catch(() => false)) {
     await usernameInput.fill(username);
     await usernameInput.press("Enter");
@@ -26,8 +28,8 @@ test.describe("Room management", () => {
   test("creating a room adds it to the list", async ({ context }) => {
     const page = await joinAsUser(context, "Alice");
 
-    const createButton = page.locator('button').filter({ hasText: /create|new room/i });
-    if (await createButton.count() === 0) return;
+    const createButton = page.locator("button").filter({ hasText: /create|new room/i });
+    if ((await createButton.count()) === 0) return;
 
     await createButton.click();
 
@@ -57,7 +59,9 @@ test.describe("Real-time messaging", () => {
 
     // User A sends a message
     const messageText = `Hello from Alice at ${Date.now()}`;
-    const inputA = pageA.locator('input[placeholder*="message" i], textarea[placeholder*="message" i]').first();
+    const inputA = pageA
+      .locator('input[placeholder*="message" i], textarea[placeholder*="message" i]')
+      .first();
     await expect(inputA).toBeVisible({ timeout: 5_000 });
     await inputA.fill(messageText);
     await inputA.press("Enter");
@@ -80,7 +84,9 @@ test.describe("Real-time messaging", () => {
     await pageB.locator('[class*="room"], [data-testid="room-item"]').nth(1).click();
 
     const secretMessage = `Secret-${Date.now()}`;
-    const inputA = pageA.locator('input[placeholder*="message" i], textarea[placeholder*="message" i]').first();
+    const inputA = pageA
+      .locator('input[placeholder*="message" i], textarea[placeholder*="message" i]')
+      .first();
     await expect(inputA).toBeVisible({ timeout: 5_000 });
     await inputA.fill(secretMessage);
     await inputA.press("Enter");
@@ -101,7 +107,9 @@ test.describe("Real-time messaging", () => {
 
     // Send a message so there's at least one in history
     const histMsg = `history-test-${Date.now()}`;
-    const inputA = pageA.locator('input[placeholder*="message" i], textarea[placeholder*="message" i]').first();
+    const inputA = pageA
+      .locator('input[placeholder*="message" i], textarea[placeholder*="message" i]')
+      .first();
     if (await inputA.isVisible({ timeout: 2000 }).catch(() => false)) {
       await inputA.fill(histMsg);
       await inputA.press("Enter");
@@ -123,8 +131,10 @@ test.describe("Presence", () => {
     const pageA = await joinAsUser(context, "Alice");
 
     // Presence panel should show at least one user
-    const presencePanel = pageA.locator('[class*="presence"], [class*="Presence"], [data-testid="presence"]');
-    if (await presencePanel.count() === 0) return;
+    const presencePanel = pageA.locator(
+      '[class*="presence"], [class*="Presence"], [data-testid="presence"]',
+    );
+    if ((await presencePanel.count()) === 0) return;
 
     await expect(presencePanel).toBeVisible({ timeout: 5_000 });
     const text = await presencePanel.textContent();
@@ -138,10 +148,12 @@ test.describe("Presence", () => {
     await pageA.waitForTimeout(1_000); // let presence stabilize
 
     const presencePanel = pageA.locator('[class*="presence"], [class*="Presence"]');
-    if (await presencePanel.count() === 0) return;
+    if ((await presencePanel.count()) === 0) return;
 
     // B closes — should disappear from A's presence panel within 5 seconds
     await pageB.close();
-    await expect(pageA.locator('[class*="presence"] >> text=Bob')).not.toBeVisible({ timeout: 6_000 });
+    await expect(pageA.locator('[class*="presence"] >> text=Bob')).not.toBeVisible({
+      timeout: 6_000,
+    });
   });
 });

@@ -11,7 +11,7 @@ const SAMPLE_BODY = {
 async function checkout(
   request: typeof import("@playwright/test").request,
   body: object,
-  idempotencyKey: string
+  idempotencyKey: string,
 ) {
   return request.post(`${BASE}/checkout`, {
     data: body,
@@ -59,7 +59,7 @@ test.describe("POST /checkout — validation", () => {
     const res = await checkout(
       request,
       { ...SAMPLE_BODY, items: [] },
-      `e2e-empty-items-${Date.now()}`
+      `e2e-empty-items-${Date.now()}`,
     );
     expect(res.status()).toBe(400);
   });

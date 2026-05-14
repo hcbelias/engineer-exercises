@@ -40,21 +40,21 @@ with `chartEngine`, `pdfEngine`, `richTextEngine`, and `geoData` in separate chu
 
 ## What's already built
 
-| File | Status | Purpose |
-|---|---|---|
-| `src/lib/chartEngine.ts` | ✅ Ready | Synthetic chart library (~8 KB) |
-| `src/lib/pdfEngine.ts` | ✅ Ready | Synthetic PDF library (~7 KB) |
-| `src/lib/richTextEngine.ts` | ✅ Ready | Synthetic rich-text library (~8 KB) |
-| `src/data/geoData.ts` | ✅ Ready | 120-country dataset (~18 KB) |
-| `src/utils/formatters.ts` | ✅ Ready | 30+ formatting utilities |
-| `src/components/Nav.tsx` | ✅ Ready | Tab navigation |
-| `src/components/Spinner.tsx` | ✅ Ready | Loading fallback for Suspense |
-| `src/components/RichTextEditor.tsx` | ✅ Ready | Heavy editor (wraps richTextEngine) |
-| `src/pages/DashboardPage.tsx` | ⚠️ BUNDLE ISSUE | `import *` blocks tree shaking |
-| `src/pages/AnalyticsPage.tsx` | ⚠️ BUNDLE ISSUE | chartEngine in initial chunk |
-| `src/pages/ReportsPage.tsx` | ⚠️ BUNDLE ISSUE | geoData (18 KB) in initial chunk |
-| `src/pages/SettingsPage.tsx` | ⚠️ BUNDLE ISSUE | RichTextEditor eagerly imported |
-| `src/App.tsx` | ⚠️ BUNDLE ISSUE | All pages statically imported — no code splitting |
+| File                                | Status          | Purpose                                           |
+| ----------------------------------- | --------------- | ------------------------------------------------- |
+| `src/lib/chartEngine.ts`            | ✅ Ready        | Synthetic chart library (~8 KB)                   |
+| `src/lib/pdfEngine.ts`              | ✅ Ready        | Synthetic PDF library (~7 KB)                     |
+| `src/lib/richTextEngine.ts`         | ✅ Ready        | Synthetic rich-text library (~8 KB)               |
+| `src/data/geoData.ts`               | ✅ Ready        | 120-country dataset (~18 KB)                      |
+| `src/utils/formatters.ts`           | ✅ Ready        | 30+ formatting utilities                          |
+| `src/components/Nav.tsx`            | ✅ Ready        | Tab navigation                                    |
+| `src/components/Spinner.tsx`        | ✅ Ready        | Loading fallback for Suspense                     |
+| `src/components/RichTextEditor.tsx` | ✅ Ready        | Heavy editor (wraps richTextEngine)               |
+| `src/pages/DashboardPage.tsx`       | ⚠️ BUNDLE ISSUE | `import *` blocks tree shaking                    |
+| `src/pages/AnalyticsPage.tsx`       | ⚠️ BUNDLE ISSUE | chartEngine in initial chunk                      |
+| `src/pages/ReportsPage.tsx`         | ⚠️ BUNDLE ISSUE | geoData (18 KB) in initial chunk                  |
+| `src/pages/SettingsPage.tsx`        | ⚠️ BUNDLE ISSUE | RichTextEditor eagerly imported                   |
+| `src/App.tsx`                       | ⚠️ BUNDLE ISSUE | All pages statically imported — no code splitting |
 
 ## Exercises
 

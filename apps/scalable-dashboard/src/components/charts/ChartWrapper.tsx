@@ -58,12 +58,7 @@ export function ChartWrapper({ title, data, labels, color }: Props) {
       }}
     >
       <h3 style={{ margin: "0 0 12px", fontSize: 14, color: "#374151" }}>{title}</h3>
-      <canvas
-        ref={canvasRef}
-        width={600}
-        height={200}
-        style={{ width: "100%", height: 200 }}
-      />
+      <canvas ref={canvasRef} width={600} height={200} style={{ width: "100%", height: 200 }} />
     </div>
   );
 }

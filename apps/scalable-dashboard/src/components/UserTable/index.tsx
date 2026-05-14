@@ -51,17 +51,10 @@ export function UserTable() {
       </div>
 
       {/* TODO: Replace this non-virtualized rendering with a virtualized one */}
-      <div
-        ref={parentRef}
-        style={{ height: 600, overflow: "auto" }}
-      >
+      <div ref={parentRef} style={{ height: 600, overflow: "auto" }}>
         {/* Non-virtualized — renders all 10,000 rows */}
         {MOCK_USERS.map((user) => (
-          <VirtualRow
-            key={user.id}
-            user={user}
-            style={{ height: ROW_HEIGHT }}
-          />
+          <VirtualRow key={user.id} user={user} style={{ height: ROW_HEIGHT }} />
         ))}
       </div>
     </div>

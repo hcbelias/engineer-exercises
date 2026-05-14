@@ -1,5 +1,3 @@
-import { ServiceError } from "../types";
-
 interface RetryOptions {
   maxAttempts: number;
   baseDelayMs: number;
@@ -40,7 +38,7 @@ const DEFAULT_OPTIONS: RetryOptions = {
 
 export async function withRetry<T>(
   fn: () => Promise<T>,
-  options: Partial<RetryOptions> = {}
+  options: Partial<RetryOptions> = {},
 ): Promise<T> {
   const opts = { ...DEFAULT_OPTIONS, ...options };
   let lastError: Error = new Error("No attempts made");

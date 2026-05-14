@@ -12,13 +12,11 @@ export default function App() {
   function renderUserError() {
     if (!error) return null;
     if (error instanceof GitHubNotFoundError) {
-      return <p style={{ color: "#dc2626" }}>User "{username}" not found.</p>;
+      return <p style={{ color: "#dc2626" }}>{`User "${username}" not found.`}</p>;
     }
     if (error instanceof GitHubRateLimitError) {
       return (
-        <p style={{ color: "#dc2626" }}>
-          GitHub rate limit hit. Try again in {error.retryAfter}s.
-        </p>
+        <p style={{ color: "#dc2626" }}>GitHub rate limit hit. Try again in {error.retryAfter}s.</p>
       );
     }
     return <p style={{ color: "#dc2626" }}>Error: {error.message}</p>;

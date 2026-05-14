@@ -13,7 +13,14 @@ export default function DashboardHome() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 16,
+          marginBottom: 32,
+        }}
+      >
         {STATS.map((stat) => (
           <Link
             key={stat.label}
@@ -33,8 +40,8 @@ export default function DashboardHome() {
         ))}
       </div>
       <p style={{ color: "#6b7280" }}>
-        Navigate to <strong>Users</strong> to see the virtualized table,{" "}
-        <strong>Analytics</strong> to see lazy-loaded charts.
+        Navigate to <strong>Users</strong> to see the virtualized table, <strong>Analytics</strong>{" "}
+        to see lazy-loaded charts.
       </p>
     </div>
   );

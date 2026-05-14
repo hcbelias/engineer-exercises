@@ -30,10 +30,10 @@ export async function getUser(username: string): Promise<GithubUser> {
 export async function getUserRepos(
   username: string,
   page: number,
-  perPage = 10
+  perPage = 10,
 ): Promise<GithubRepo[]> {
   const repos = await ghFetch<GithubRepo[]>(
-    `/users/${username}/repos?sort=updated&per_page=${perPage}&page=${page}`
+    `/users/${username}/repos?sort=updated&per_page=${perPage}&page=${page}`,
   );
   // Inject a local viewer_has_starred field since it requires auth
   return repos.map((r) => ({ ...r, viewer_has_starred: false }));

@@ -26,8 +26,7 @@ describe("SkipNav", () => {
     const hasSrOnly = link.classList.contains("sr-only");
     const style = link.getAttribute("style") ?? "";
     const isPositionedOffScreen =
-      style.includes("position") &&
-      (style.includes("absolute") || style.includes("fixed"));
+      style.includes("position") && (style.includes("absolute") || style.includes("fixed"));
 
     expect(hasSrOnly || isPositionedOffScreen).toBe(true);
   });

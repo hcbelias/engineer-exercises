@@ -1,22 +1,17 @@
 import type { Server } from "socket.io";
-import type {
-  ServerToClientEvents,
-  ClientToServerEvents,
-  SocketData,
-} from "../types";
+import type { ServerToClientEvents, ClientToServerEvents, SocketData } from "../types";
 
 // TODO: Import and use roomHandler and messageHandler
 
 export function registerChatNamespace(
-  io: Server<ClientToServerEvents, ServerToClientEvents, Record<string, never>, SocketData>
+  io: Server<ClientToServerEvents, ServerToClientEvents, Record<string, never>, SocketData>,
 ) {
   const chat = io.of("/chat");
 
   chat.on("connection", (socket) => {
     // Assign a userId from the socket handshake query (the client sends it)
     const userId = (socket.handshake.query["userId"] as string) ?? socket.id;
-    const username =
-      (socket.handshake.query["username"] as string) ?? "Anonymous";
+    const username = (socket.handshake.query["username"] as string) ?? "Anonymous";
     socket.data.userId = userId;
     socket.data.username = username;
 

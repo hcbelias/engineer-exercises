@@ -25,10 +25,7 @@ import { logger } from "../observability/logger";
 // 4. Log each step start/success/failure with the correlationId
 // 5. Return SagaResult<T>
 
-export async function runSaga<T>(
-  steps: SagaStep[],
-  correlationId: string
-): Promise<SagaResult<T>> {
+export async function runSaga<T>(steps: SagaStep[], correlationId: string): Promise<SagaResult<T>> {
   const log = logger.child({ correlationId });
   const succeeded: SagaStep[] = [];
   let lastResult: unknown;
@@ -71,7 +68,7 @@ export async function runSaga<T>(
 
 export async function executeCheckout(
   request: CheckoutRequest,
-  correlationId: string
+  correlationId: string,
 ): Promise<SagaResult<CheckoutResult>> {
   // TODO: build and execute the saga steps
   throw new Error("TODO: implement executeCheckout");

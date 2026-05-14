@@ -9,5 +9,14 @@
 // overlays when visible.
 
 export function SkipNav() {
-  return <a id="skip-nav" className="sr-only" style={{ position: "absolute", top: 0, left: 0, zIndex: 1000 }} href="#main-content">Skip to main content</a>
+  return (
+    <a
+      id="skip-nav"
+      className="sr-only"
+      style={{ position: "absolute", top: 0, left: 0, zIndex: 1000 }}
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
+  );
 }

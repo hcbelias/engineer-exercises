@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getRepo } from "../api/github";
 import { queryKeys } from "../queryKeys";
 import type { GithubRepo } from "../api/types";
@@ -16,9 +17,10 @@ import type { GithubRepo } from "../api/types";
 
 export function useRepo(owner: string | null, name: string | null) {
   return useQuery<GithubRepo>({
-    queryKey: owner && name
-      ? queryKeys.repos.detail(owner, name)
-      : ([] as unknown as ReturnType<typeof queryKeys.repos.detail>),
+    queryKey:
+      owner && name
+        ? queryKeys.repos.detail(owner, name)
+        : ([] as unknown as ReturnType<typeof queryKeys.repos.detail>),
     queryFn: () => {
       throw new Error("TODO: implement useRepo queryFn");
     },

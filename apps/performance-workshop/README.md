@@ -16,6 +16,7 @@ pnpm dev            # starts all apps; this one runs on http://localhost:3007
 ```
 
 Or start only this app:
+
 ```bash
 cd apps/performance-workshop
 pnpm dev
@@ -23,21 +24,21 @@ pnpm dev
 
 ## What's already built
 
-| File | Status | Purpose |
-|---|---|---|
-| `src/data/mockProducts.ts` | ✅ Ready | 5,000 deterministic products |
-| `src/utils/compute.ts` | ✅ Ready | `filterAndSortProducts` and `calculateStats` — pure, expensive functions |
-| `src/components/ProductList/FilterBar.tsx` | ✅ Ready | Filter UI (category, price, stock, sort) |
-| `src/hooks/useDebounce.ts` | ❌ TODO | Debounce a value by N ms |
-| `src/hooks/useThrottle.ts` | ❌ TODO | Throttle a value to at most 1 update per N ms |
-| `src/hooks/useDebouncedCallback.ts` | ❌ TODO | Debounce a callback function (bonus) |
-| `src/App.tsx` | ⚠️ PERF ISSUE | `handleAddToCart` defined without `useCallback` |
-| `src/components/SearchPanel/index.tsx` | ⚠️ PERF ISSUE | Search fires on every keystroke — no debounce |
-| `src/components/SearchPanel/SearchResults.tsx` | ⚠️ PERF ISSUE | Missing `React.memo` |
-| `src/components/StatsPanel.tsx` | ⚠️ PERF ISSUE | `calculateStats` runs on every render — no `useMemo` |
-| `src/components/ProductList/index.tsx` | ⚠️ PERF ISSUE | `filterAndSortProducts` runs on every render — no `useMemo` |
-| `src/components/ProductList/ProductCard.tsx` | ⚠️ PERF ISSUE | Missing `React.memo` |
-| `src/components/ScrollTracker/index.tsx` | ⚠️ PERF ISSUE | `setState` called on every scroll event — no throttle |
+| File                                           | Status        | Purpose                                                                  |
+| ---------------------------------------------- | ------------- | ------------------------------------------------------------------------ |
+| `src/data/mockProducts.ts`                     | ✅ Ready      | 5,000 deterministic products                                             |
+| `src/utils/compute.ts`                         | ✅ Ready      | `filterAndSortProducts` and `calculateStats` — pure, expensive functions |
+| `src/components/ProductList/FilterBar.tsx`     | ✅ Ready      | Filter UI (category, price, stock, sort)                                 |
+| `src/hooks/useDebounce.ts`                     | ❌ TODO       | Debounce a value by N ms                                                 |
+| `src/hooks/useThrottle.ts`                     | ❌ TODO       | Throttle a value to at most 1 update per N ms                            |
+| `src/hooks/useDebouncedCallback.ts`            | ❌ TODO       | Debounce a callback function (bonus)                                     |
+| `src/App.tsx`                                  | ⚠️ PERF ISSUE | `handleAddToCart` defined without `useCallback`                          |
+| `src/components/SearchPanel/index.tsx`         | ⚠️ PERF ISSUE | Search fires on every keystroke — no debounce                            |
+| `src/components/SearchPanel/SearchResults.tsx` | ⚠️ PERF ISSUE | Missing `React.memo`                                                     |
+| `src/components/StatsPanel.tsx`                | ⚠️ PERF ISSUE | `calculateStats` runs on every render — no `useMemo`                     |
+| `src/components/ProductList/index.tsx`         | ⚠️ PERF ISSUE | `filterAndSortProducts` runs on every render — no `useMemo`              |
+| `src/components/ProductList/ProductCard.tsx`   | ⚠️ PERF ISSUE | Missing `React.memo`                                                     |
+| `src/components/ScrollTracker/index.tsx`       | ⚠️ PERF ISSUE | `setState` called on every scroll event — no throttle                    |
 
 ## Exercises
 
@@ -59,7 +60,7 @@ Implement a hook that limits how often a value can update. Apply it in `src/comp
 
 ### 3. Implement `useDebouncedCallback` (bonus) — `src/hooks/useDebouncedCallback.ts`
 
-Unlike `useDebounce` (which debounces a *value*), implement a hook that debounces a *callback function*. The returned function reference must be stable across renders and must always invoke the latest version of the wrapped callback to avoid stale closures.
+Unlike `useDebounce` (which debounces a _value_), implement a hook that debounces a _callback function_. The returned function reference must be stable across renders and must always invoke the latest version of the wrapped callback to avoid stale closures.
 
 ---
 
@@ -103,7 +104,7 @@ Clicking "Add to cart" on one product currently causes all 100 visible product c
 
 2. **The memo + useCallback contract**: Why does wrapping `ProductCard` in `React.memo` alone fail to prevent re-renders when `onAddToCart` is not wrapped in `useCallback`? What does shallow equality actually check?
 
-3. **Cost/benefit of memoization**: `useMemo` and `useCallback` add complexity and have their own overhead (allocation, dependency array comparison). How do you decide when memoization is worth it? What signals in the Profiler tell you a component *needs* memoization vs. is fast enough without it?
+3. **Cost/benefit of memoization**: `useMemo` and `useCallback` add complexity and have their own overhead (allocation, dependency array comparison). How do you decide when memoization is worth it? What signals in the Profiler tell you a component _needs_ memoization vs. is fast enough without it?
 
 4. **Leading vs. trailing throttle**: The exercise uses trailing-edge throttle. What is the difference between leading and trailing edge? For scroll-to-top button visibility, which edge matters more and why?
 

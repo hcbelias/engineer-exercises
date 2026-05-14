@@ -5,6 +5,7 @@ Build a multi-room chat application where multiple users join named rooms, excha
 ## The problem
 
 A real-time chat system requires careful handling of:
+
 - **Namespaces** — isolating concerns (chat vs. presence) within one Socket.io server
 - **Rooms** — routing events only to the correct subscribers
 - **Reconnection** — gracefully recovering from network interruptions
@@ -12,16 +13,16 @@ A real-time chat system requires careful handling of:
 
 ## What's pre-scaffolded
 
-| File | Status |
-|------|--------|
-| `server/src/index.ts` | Done — Express + Socket.io bootstrap, two namespaces registered |
-| `server/src/types.ts` | Done — typed event maps for full TypeScript safety |
-| `client/src/App.tsx` | Done — two-panel layout, `selectedRoom` state lifted here |
+| File                      | Status                                                                        |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| `server/src/index.ts`     | Done — Express + Socket.io bootstrap, two namespaces registered               |
+| `server/src/types.ts`     | Done — typed event maps for full TypeScript safety                            |
+| `client/src/App.tsx`      | Done — two-panel layout, `selectedRoom` state lifted here                     |
 | `client/src/components/*` | Done — display shells (RoomList, ChatWindow, MessageInput, PresenceIndicator) |
-| `client/src/socket.ts` | Partial — sockets created but **reconnection options missing** |
-| `client/src/hooks/*` | Stub — signatures and docs present, bodies are `TODO` |
-| `server/src/namespaces/*` | Stub — event handlers wired up, logic is `TODO` |
-| `server/src/handlers/*` | Stub — in-memory store helpers, implementations are `TODO` |
+| `client/src/socket.ts`    | Partial — sockets created but **reconnection options missing**                |
+| `client/src/hooks/*`      | Stub — signatures and docs present, bodies are `TODO`                         |
+| `server/src/namespaces/*` | Stub — event handlers wired up, logic is `TODO`                               |
+| `server/src/handlers/*`   | Stub — in-memory store helpers, implementations are `TODO`                    |
 
 ## Your TODOs
 
@@ -35,6 +36,7 @@ Implement message persistence: storing a new message for a room (keeping only th
 
 **`server/src/namespaces/chat.namespace.ts`**
 Wire up the event handlers for the chat namespace:
+
 - Joining a room should validate capacity, deliver history to the joining socket, and notify other room members of the updated state
 - Leaving a room should update occupancy
 - Creating a room should broadcast the updated room list to all connected clients

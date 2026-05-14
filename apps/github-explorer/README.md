@@ -12,35 +12,41 @@ Most apps that "work" still have subtle server-state bugs: stale UI after mutati
 
 ## What's pre-scaffolded
 
-| File | Status |
-|------|--------|
-| `src/api/github.ts` | Done — typed fetch wrappers for all GitHub calls |
-| `src/api/types.ts` | Done — `GithubUser`, `GithubRepo`, typed error classes |
-| `src/main.tsx` | Done — `QueryClientProvider` + `ReactQueryDevtools` wired up |
-| `src/App.tsx` | Done — search → user card → repo list layout |
-| `src/components/*` | Done — `UserSearch`, `UserCard`, `RepoCard`, `RepoList` shells |
-| `src/queryClient.ts` | Partial — `retry` logic present, **`staleTime`/`gcTime` missing** |
-| `src/queryKeys/index.ts` | Stub — factory shape defined, **implementations are `TODO`** |
-| `src/hooks/*.ts` | Stub — signatures + docs present, **bodies are `TODO`** |
+| File                     | Status                                                            |
+| ------------------------ | ----------------------------------------------------------------- |
+| `src/api/github.ts`      | Done — typed fetch wrappers for all GitHub calls                  |
+| `src/api/types.ts`       | Done — `GithubUser`, `GithubRepo`, typed error classes            |
+| `src/main.tsx`           | Done — `QueryClientProvider` + `ReactQueryDevtools` wired up      |
+| `src/App.tsx`            | Done — search → user card → repo list layout                      |
+| `src/components/*`       | Done — `UserSearch`, `UserCard`, `RepoCard`, `RepoList` shells    |
+| `src/queryClient.ts`     | Partial — `retry` logic present, **`staleTime`/`gcTime` missing** |
+| `src/queryKeys/index.ts` | Stub — factory shape defined, **implementations are `TODO`**      |
+| `src/hooks/*.ts`         | Stub — signatures + docs present, **bodies are `TODO`**           |
 
 ## Your TODOs
 
 ### `src/queryClient.ts`
+
 Configure appropriate cache lifetimes so that data is considered fresh for 1 minute and garbage-collected after 5 minutes of inactivity.
 
 ### `src/queryKeys/index.ts`
+
 Implement the query key factory. Keys must be structured hierarchically so that invalidating a parent key (e.g. a user) automatically cascades to all child queries (e.g. that user's repos).
 
 ### `src/hooks/useUser.ts`
+
 Fetch a GitHub user by username. The query should be disabled when no username has been provided.
 
 ### `src/hooks/useUserRepos.ts`
+
 Fetch a user's repositories with infinite scroll pagination. The hook should know when there are no more pages to load and expose a flat list of all repos loaded so far.
 
 ### `src/hooks/useRepo.ts`
+
 Fetch a single repository. Used to re-read a repo's state after a mutation.
 
 ### `src/hooks/useStarRepo.ts`
+
 Implement star/unstar as a mutation with a full optimistic update: the UI must reflect the new state immediately, before the server responds. If the server call fails, the UI must revert to its previous state. Once the mutation settles (success or failure), the repos cache should be refreshed.
 
 ## How to run

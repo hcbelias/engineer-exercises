@@ -10,9 +10,7 @@ interface SearchResultsProps {
 // Fix: memoize this component so it only re-renders when its props actually change.
 export function SearchResults({ results }: SearchResultsProps) {
   if (results.length === 0) {
-    return (
-      <p style={{ fontSize: 14, color: "#9ca3af", marginTop: 8 }}>No results.</p>
-    );
+    return <p style={{ fontSize: 14, color: "#9ca3af", marginTop: 8 }}>No results.</p>;
   }
 
   return (

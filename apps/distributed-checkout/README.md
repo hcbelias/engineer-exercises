@@ -30,45 +30,51 @@ If step 2 fails: `cancelShipment` is skipped (never ran), `refundPayment` runs, 
 
 ## What's pre-scaffolded
 
-| File | Status |
-|------|--------|
-| `src/types.ts` | Done — `CheckoutRequest`, `CheckoutResult`, `ServiceError` with `retryable` flag |
-| `src/services/*.service.ts` | Done — simulated services with configurable failure rates |
-| `src/saga/saga.types.ts` | Done — typed `SagaStep<T>` and `SagaResult<T>` |
-| `src/observability/logger.ts` | Done — structured JSON logger with child loggers |
-| `src/routes/checkout.router.ts` | Done — mounts handler on POST /checkout |
-| `src/index.ts` | Done — Express bootstrap |
-| `src/saga/checkout.saga.ts` | Partial — **saga executor partial, `executeCheckout` is TODO** |
-| `src/retry/withRetry.ts` | Partial — **delay and retry logic is TODO** |
-| `src/idempotency/idempotency.store.ts` | Partial — **new-key execution path is TODO** |
-| `src/handlers/checkout.handler.ts` | Partial — **saga result mapping and error responses are TODO** |
-| `test/checkout.test.ts` | Stub — **all test bodies are TODO** |
+| File                                   | Status                                                                           |
+| -------------------------------------- | -------------------------------------------------------------------------------- |
+| `src/types.ts`                         | Done — `CheckoutRequest`, `CheckoutResult`, `ServiceError` with `retryable` flag |
+| `src/services/*.service.ts`            | Done — simulated services with configurable failure rates                        |
+| `src/saga/saga.types.ts`               | Done — typed `SagaStep<T>` and `SagaResult<T>`                                   |
+| `src/observability/logger.ts`          | Done — structured JSON logger with child loggers                                 |
+| `src/routes/checkout.router.ts`        | Done — mounts handler on POST /checkout                                          |
+| `src/index.ts`                         | Done — Express bootstrap                                                         |
+| `src/saga/checkout.saga.ts`            | Partial — **saga executor partial, `executeCheckout` is TODO**                   |
+| `src/retry/withRetry.ts`               | Partial — **delay and retry logic is TODO**                                      |
+| `src/idempotency/idempotency.store.ts` | Partial — **new-key execution path is TODO**                                     |
+| `src/handlers/checkout.handler.ts`     | Partial — **saga result mapping and error responses are TODO**                   |
+| `test/checkout.test.ts`                | Stub — **all test bodies are TODO**                                              |
 
 ## Your TODOs
 
 ### 1. `src/retry/withRetry.ts`
+
 Implement retry logic with exponential backoff and jitter. Retries should not happen for errors that are non-retryable (e.g. a business rule violation like a declined card). After exhausting all attempts, the last error should propagate to the caller.
 
 ### 2. `src/idempotency/idempotency.store.ts`
+
 Implement the new-key execution path: a request with a previously unseen idempotency key should execute the operation, store the result, and return it. Concurrent requests arriving with the same key before the first one completes must not trigger duplicate executions — they should wait and receive the same result.
 
 ### 3. `src/saga/checkout.saga.ts`
+
 Implement the saga executor and the checkout saga. When a step fails, previously completed steps must be compensated in reverse order. Compensation errors should be collected and logged without interrupting the remaining compensations. Intermediate results from earlier steps (reservation ID, charge ID) must be accessible to later steps and their compensations.
 
 ### 4. `src/handlers/checkout.handler.ts`
+
 Map saga outcomes to the correct HTTP responses and ensure the correlation ID flows through every log entry.
 
 **HTTP status mapping**:
 
-| Scenario | Status |
-|----------|--------|
-| Inventory unavailable (non-retryable) | `409 Conflict` |
-| Payment declined (non-retryable) | `402 Payment Required` |
-| Any service retryable but exhausted | `503 Service Unavailable` + `Retry-After: 30` header |
-| Success | `200 OK` |
+| Scenario                              | Status                                               |
+| ------------------------------------- | ---------------------------------------------------- |
+| Inventory unavailable (non-retryable) | `409 Conflict`                                       |
+| Payment declined (non-retryable)      | `402 Payment Required`                               |
+| Any service retryable but exhausted   | `503 Service Unavailable` + `Retry-After: 30` header |
+| Success                               | `200 OK`                                             |
 
 ### 5. `test/checkout.test.ts`
+
 Implement all test cases. Run with:
+
 ```bash
 pnpm test
 ```

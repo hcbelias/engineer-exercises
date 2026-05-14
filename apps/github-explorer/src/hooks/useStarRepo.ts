@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { starRepo, unstarRepo } from "../api/github";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { queryKeys } from "../queryKeys";
 import type { GithubRepo } from "../api/types";
 import type { InfiniteData } from "@tanstack/react-query";
@@ -35,9 +36,15 @@ interface StarVariables {
 // - What happens if the user stars 3 repos quickly in a row before any responses come back?
 
 export function useStarRepo() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const queryClient = useQueryClient();
 
-  return useMutation<void, Error, StarVariables, { previousData: InfiniteData<GithubRepo[]> | undefined }>({
+  return useMutation<
+    void,
+    Error,
+    StarVariables,
+    { previousData: InfiniteData<GithubRepo[]> | undefined }
+  >({
     mutationFn: async ({ owner, name, currentlyStarred }) => {
       // TODO
       if (currentlyStarred) {

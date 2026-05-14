@@ -30,9 +30,7 @@ export function ChatWindow({ roomId, messages, onSend }: Props) {
         {messages.map((msg) => (
           <div key={msg.id} style={{ marginBottom: 8 }}>
             <strong>{msg.username}</strong>{" "}
-            <small style={{ color: "#999" }}>
-              {new Date(msg.timestamp).toLocaleTimeString()}
-            </small>
+            <small style={{ color: "#999" }}>{new Date(msg.timestamp).toLocaleTimeString()}</small>
             <p style={{ margin: "2px 0 0 0" }}>{msg.text}</p>
           </div>
         ))}

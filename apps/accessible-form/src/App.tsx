@@ -21,7 +21,26 @@ const TABS = [
   { id: "tab-combobox", label: "ComboBox", panelId: "panel-combobox" },
 ];
 
-const FRUITS = ["Apple", "Apricot", "Banana", "Blueberry", "Cherry", "Fig", "Grape", "Kiwi", "Lemon", "Mango", "Orange", "Peach", "Pear", "Pineapple", "Plum", "Raspberry", "Strawberry", "Watermelon"];
+const FRUITS = [
+  "Apple",
+  "Apricot",
+  "Banana",
+  "Blueberry",
+  "Cherry",
+  "Fig",
+  "Grape",
+  "Kiwi",
+  "Lemon",
+  "Mango",
+  "Orange",
+  "Peach",
+  "Pear",
+  "Pineapple",
+  "Plum",
+  "Raspberry",
+  "Strawberry",
+  "Watermelon",
+];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState(0);
@@ -31,7 +50,9 @@ export default function App() {
   return (
     <>
       <SkipNav />
-      <div style={{ maxWidth: 700, margin: "0 auto", padding: "24px 16px", fontFamily: "sans-serif" }}>
+      <div
+        style={{ maxWidth: 700, margin: "0 auto", padding: "24px 16px", fontFamily: "sans-serif" }}
+      >
         <header>
           <h1>Accessibility Workshop</h1>
           <p style={{ color: "#6b7280" }}>
@@ -41,7 +62,9 @@ export default function App() {
 
         {/* TAB LIST — currently broken: div+onClick, no ARIA, no keyboard nav */}
         {/* TODO: convert to an accessible tab list */}
-        <div style={{ display: "flex", gap: 0, borderBottom: "2px solid #e5e7eb", marginBottom: 24 }}>
+        <div
+          style={{ display: "flex", gap: 0, borderBottom: "2px solid #e5e7eb", marginBottom: 24 }}
+        >
           {TABS.map((tab, i) => (
             <div
               key={tab.id}
@@ -87,7 +110,10 @@ export default function App() {
           {activeTab === 2 && (
             <div id={TABS[2].panelId}>
               <h2>ComboBox</h2>
-              <p>A typeahead dropdown that must be navigable by keyboard and announced by screen readers.</p>
+              <p>
+                A typeahead dropdown that must be navigable by keyboard and announced by screen
+                readers.
+              </p>
               <div style={{ maxWidth: 300, marginTop: 16 }}>
                 <ComboBox
                   label="Favourite fruit"
@@ -96,7 +122,9 @@ export default function App() {
                   onChange={setSelectedFruit}
                 />
                 {selectedFruit && (
-                  <p style={{ marginTop: 12 }}>Selected: <strong>{selectedFruit}</strong></p>
+                  <p style={{ marginTop: 12 }}>
+                    Selected: <strong>{selectedFruit}</strong>
+                  </p>
                 )}
               </div>
             </div>

@@ -19,7 +19,13 @@ export function UserSearch({ onSearch, isLoading }: Props) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="GitHub username…"
-        style={{ flex: 1, padding: "8px 12px", fontSize: 16, borderRadius: 6, border: "1px solid #ccc" }}
+        style={{
+          flex: 1,
+          padding: "8px 12px",
+          fontSize: 16,
+          borderRadius: 6,
+          border: "1px solid #ccc",
+        }}
       />
       <button type="submit" disabled={isLoading || !value.trim()}>
         {isLoading ? "Loading…" : "Search"}

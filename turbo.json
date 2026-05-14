@@ -18,6 +18,10 @@
     },
     "test:e2e": {
       "cache": false
-    }
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "format:check": {}
   }
 }

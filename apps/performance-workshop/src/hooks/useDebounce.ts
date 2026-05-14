@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 // TODO: Implement useDebounce
 //
 // Requirements:

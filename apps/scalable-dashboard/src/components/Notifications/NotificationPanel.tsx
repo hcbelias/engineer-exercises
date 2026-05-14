@@ -28,7 +28,10 @@ export function NotificationPanel({ onClose }: Props) {
         }}
       >
         <strong>Notifications</strong>
-        <button onClick={onClose} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer" }}>
+        <button
+          onClick={onClose}
+          style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer" }}
+        >
           ×
         </button>
       </div>
@@ -45,7 +48,9 @@ export function NotificationPanel({ onClose }: Props) {
             }}
           >
             <span style={{ fontWeight: n.read ? 400 : 600 }}>{n.title}</span>
-            <small style={{ color: "#9ca3af", marginLeft: 12, whiteSpace: "nowrap" }}>{n.time}</small>
+            <small style={{ color: "#9ca3af", marginLeft: 12, whiteSpace: "nowrap" }}>
+              {n.time}
+            </small>
           </li>
         ))}
       </ul>

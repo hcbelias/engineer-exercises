@@ -6,10 +6,10 @@ interface NavProps {
 }
 
 const LINKS: { id: Page; label: string; icon: string }[] = [
-  { id: "dashboard",  label: "Dashboard",  icon: "⊞" },
-  { id: "analytics",  label: "Analytics",  icon: "📈" },
-  { id: "reports",    label: "Reports",    icon: "📄" },
-  { id: "settings",   label: "Settings",   icon: "⚙" },
+  { id: "dashboard", label: "Dashboard", icon: "⊞" },
+  { id: "analytics", label: "Analytics", icon: "📈" },
+  { id: "reports", label: "Reports", icon: "📄" },
+  { id: "settings", label: "Settings", icon: "⚙" },
 ];
 
 export function Nav({ current, onChange }: NavProps) {

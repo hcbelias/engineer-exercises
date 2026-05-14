@@ -28,11 +28,7 @@ export default function App() {
         onSelectRoom={setSelectedRoomId}
         onCreateRoom={createRoom}
       />
-      <ChatWindow
-        roomId={selectedRoomId}
-        messages={allMessages}
-        onSend={sendMessage}
-      />
+      <ChatWindow roomId={selectedRoomId} messages={allMessages} onSend={sendMessage} />
       <PresenceIndicator users={onlineUsers} isConnected={isConnected} />
     </div>
   );

@@ -25,7 +25,7 @@ const server = setupServer(
       return HttpResponse.json(MOCK_USER);
     }
     return new HttpResponse(null, { status: 404 });
-  })
+  }),
 );
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
@@ -40,6 +40,7 @@ function makeWrapper() {
       },
     },
   });
+  // eslint-disable-next-line react/display-name
   return ({ children }: { children: React.ReactNode }) =>
     React.createElement(QueryClientProvider, { client: queryClient }, children);
 }
@@ -70,7 +71,7 @@ describe("useUser", () => {
       http.get("https://api.github.com/users/torvalds", async () => {
         await new Promise((r) => setTimeout(r, 50));
         return HttpResponse.json(MOCK_USER);
-      })
+      }),
     );
 
     const { result } = renderHook(() => useUser("torvalds"), {

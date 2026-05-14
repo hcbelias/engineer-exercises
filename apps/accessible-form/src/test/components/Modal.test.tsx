@@ -49,7 +49,9 @@ describe("Modal", () => {
     // The overlay is the outermost wrapper div rendered into the portal
     // Find it by querying for an element that is NOT the dialog itself
     // but is a direct ancestor wrapping it (the backdrop/overlay).
-    const overlay = container.firstChild as HTMLElement ??
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const overlay =
+      (container.firstChild as HTMLElement) ??
       document.body.querySelector<HTMLElement>("div:not([role='dialog'])");
 
     // The Modal renders via portal into document.body, so query body

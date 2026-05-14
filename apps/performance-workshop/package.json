@@ -7,13 +7,18 @@
     "build": "tsc -b && vite build",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@exercises/eslint-config": "workspace:^",
+    "@exercises/prettier-config": "workspace:^",
     "@exercises/tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -25,5 +30,7 @@
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
     "vitest": "^4.1.6"
-  }
+  },
+  "prettier": "@exercises/prettier-config",
+  "type": "module"
 }

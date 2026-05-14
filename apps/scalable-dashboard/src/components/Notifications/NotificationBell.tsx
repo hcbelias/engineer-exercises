@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 // After implementing, run `ANALYZE=true pnpm build` to verify it is in a separate chunk.
 const NotificationPanel = dynamic(
   () => import("./NotificationPanel").then((m) => ({ default: m.NotificationPanel })),
-  { loading: () => <p style={{ padding: 16 }}>Loading…</p> }
+  { loading: () => <p style={{ padding: 16 }}>Loading…</p> },
 );
 
 export function NotificationBell() {

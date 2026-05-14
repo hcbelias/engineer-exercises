@@ -30,7 +30,9 @@ export function FilterBar({ filters, onChange }: FilterBarProps) {
         >
           <option value="">All</option>
           {CATEGORY_LIST.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c} value={c}>
+              {c}
+            </option>
           ))}
         </select>
       </label>

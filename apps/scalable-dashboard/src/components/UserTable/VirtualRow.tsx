@@ -34,7 +34,9 @@ export function VirtualRow({ user, style }: Props) {
       <span style={{ fontWeight: 500 }}>{user.name}</span>
       <span style={{ color: "#6b7280" }}>{user.email}</span>
       <span>{user.role}</span>
-      <span style={{ color: STATUS_COLORS[user.status], fontWeight: 500, textTransform: "capitalize" }}>
+      <span
+        style={{ color: STATUS_COLORS[user.status], fontWeight: 500, textTransform: "capitalize" }}
+      >
         {user.status}
       </span>
       <span style={{ color: "#9ca3af" }}>{user.joinedAt}</span>

@@ -1,12 +1,8 @@
 import type { Server } from "socket.io";
-import type {
-  ServerToClientEvents,
-  ClientToServerEvents,
-  SocketData,
-} from "../types";
+import type { ServerToClientEvents, ClientToServerEvents, SocketData } from "../types";
 
 export function registerPresenceNamespace(
-  io: Server<ClientToServerEvents, ServerToClientEvents, Record<string, never>, SocketData>
+  io: Server<ClientToServerEvents, ServerToClientEvents, Record<string, never>, SocketData>,
 ) {
   const presence = io.of("/presence");
 

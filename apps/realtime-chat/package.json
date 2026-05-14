@@ -10,7 +10,10 @@
     "type-check": "tsc --noEmit -p server/tsconfig.json && tsc --noEmit -p client/tsconfig.json",
     "test": "vitest run --config vitest.config.ts",
     "test:server": "vitest run --config vitest.config.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "express": "^4.21.2",
@@ -20,6 +23,8 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
+    "@exercises/eslint-config": "workspace:^",
+    "@exercises/prettier-config": "workspace:^",
     "@exercises/tsconfig": "workspace:*",
     "@types/express": "^4.17.21",
     "@types/react": "^18.3.18",
@@ -30,5 +35,7 @@
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
     "vitest": "^4.1.6"
-  }
+  },
+  "prettier": "@exercises/prettier-config",
+  "type": "module"
 }

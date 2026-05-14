@@ -12,9 +12,7 @@ describe("idempotencyStore — pure unit tests", () => {
   });
 
   it("executes the function for a new key and returns its result", async () => {
-    const result = await idempotencyStore.getOrExecute("key-new", () =>
-      Promise.resolve("hello")
-    );
+    const result = await idempotencyStore.getOrExecute("key-new", () => Promise.resolve("hello"));
     assert.equal(result, "hello");
   });
 
@@ -68,12 +66,9 @@ describe("idempotencyStore — pure unit tests", () => {
     });
 
     // Second call — should also reject with the same stored error
-    const secondErr = await assert.rejects(
-      () => idempotencyStore.getOrExecute("key-fail", fn),
-      {
-        message: "downstream exploded",
-      }
-    );
+    const secondErr = await assert.rejects(() => idempotencyStore.getOrExecute("key-fail", fn), {
+      message: "downstream exploded",
+    });
 
     // fn must only have been called once
     assert.equal(callCount, 1);

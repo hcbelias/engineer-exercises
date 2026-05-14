@@ -17,7 +17,9 @@ test.describe("Loading skeletons", () => {
     await page.goto(`${URL}/analytics`);
 
     // A skeleton or loading indicator should appear before the chart loads
-    const skeleton = page.locator('[class*="skeleton"], [class*="loading"], [aria-busy="true"]').first();
+    const _skeleton = page
+      .locator('[class*="skeleton"], [class*="loading"], [aria-busy="true"]')
+      .first();
     // Either we catch the skeleton or the chart loads fast — both are acceptable
     // The key test is that the page doesn't crash
     await expect(page.locator("body")).toBeVisible();
@@ -40,7 +42,9 @@ test.describe("Virtualized user table", () => {
     // Count actual DOM row elements — with virtualization, should be ~20, not 10,000
     const rowCount = await page.evaluate(() => {
       // Look for VirtualRow elements (divs in the scroll container)
-      const container = document.querySelector('[style*="overflow: auto"], [style*="overflow:auto"]');
+      const container = document.querySelector(
+        '[style*="overflow: auto"], [style*="overflow:auto"]',
+      );
       if (!container) return document.querySelectorAll('[data-testid="virtual-row"]').length;
       return container.querySelectorAll("div[style]").length;
     });
@@ -80,9 +84,7 @@ test.describe("Lazy-loaded charts", () => {
     await page.goto(URL); // home page — not analytics
 
     // Chart-related chunks should not be loaded on the home page
-    const chartChunks = loadedUrls.filter(
-      (url) => url.includes("chart") || url.includes("Chart")
-    );
+    const chartChunks = loadedUrls.filter((url) => url.includes("chart") || url.includes("Chart"));
     expect(chartChunks).toHaveLength(0);
   });
 
@@ -118,7 +120,7 @@ test.describe("Notification panel", () => {
 
     // Notification panel should not be loaded until triggered
     const notificationChunks = loadedUrls.filter(
-      (url) => url.includes("notification") || url.includes("Notification")
+      (url) => url.includes("notification") || url.includes("Notification"),
     );
     // This tests the lazy-loading requirement — chunk should not be in initial load
     expect(notificationChunks).toHaveLength(0);
@@ -135,7 +137,7 @@ test.describe("DashboardProvider — no unnecessary re-renders", () => {
     await expect(page.locator("body")).toBeVisible();
 
     const bell = page.locator('[aria-label*="notification" i], button[class*="bell" i]').first();
-    if (await bell.count() > 0) {
+    if ((await bell.count()) > 0) {
       await bell.click();
       await expect(page.locator("body")).toBeVisible(); // no crash after interaction
     }

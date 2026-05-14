@@ -40,11 +40,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setSelectedUserId,
   };
 
-  return (
-    <DashboardContext.Provider value={value}>
-      {children}
-    </DashboardContext.Provider>
-  );
+  return <DashboardContext.Provider value={value}>{children}</DashboardContext.Provider>;
 }
 
 export function useDashboard() {

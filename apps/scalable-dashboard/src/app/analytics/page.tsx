@@ -31,8 +31,8 @@ export default async function AnalyticsPage() {
     <div>
       <h1>Analytics</h1>
       <p style={{ color: "#6b7280", marginBottom: 24 }}>
-        Charts are loaded lazily — they're not in the initial JavaScript bundle.
-        Open the Network tab and observe that the chart code loads only when this page mounts.
+        Charts are loaded lazily — they&apos;re not in the initial JavaScript bundle. Open the
+        Network tab and observe that the chart code loads only when this page mounts.
       </p>
 
       <section style={{ marginBottom: 32 }}>
@@ -40,22 +40,12 @@ export default async function AnalyticsPage() {
         {/* TODO: LazyChart is currently imported normally.
             Convert it to use next/dynamic with ssr:false.
             Explain in a comment WHY ssr:false is needed here. */}
-        <LazyChart
-          title="Sessions"
-          data={data.sessions}
-          labels={data.labels}
-          color="#4f46e5"
-        />
+        <LazyChart title="Sessions" data={data.sessions} labels={data.labels} color="#4f46e5" />
       </section>
 
       <section>
         <h2>Weekly Revenue</h2>
-        <LazyChart
-          title="Revenue ($)"
-          data={data.revenue}
-          labels={data.labels}
-          color="#16a34a"
-        />
+        <LazyChart title="Revenue ($)" data={data.revenue} labels={data.labels} color="#16a34a" />
       </section>
     </div>
   );

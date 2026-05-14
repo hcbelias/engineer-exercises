@@ -27,7 +27,7 @@ export function useChat(_roomId: string | null): {
   messages: Message[];
   sendMessage: (text: string) => void;
 } {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, _setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     // TODO
