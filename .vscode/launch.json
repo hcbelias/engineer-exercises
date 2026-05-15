@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Test: Watch current file",
+      "type": "node-terminal",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "command": "f='${file}'; d=$(dirname \"$f\"); b=$(basename \"$f\"); ext=$(echo \"$b\" | sed 's/.*\\.//'); stem=$(echo \"$b\" | sed 's/\\.[^.]*$//'); if echo \"$f\" | grep -qE '\\.test\\.[tj]sx?$'; then t=\"$f\"; elif [ \"$stem\" = 'index' ]; then cname=$(basename \"$d\"); ctest=\"$d/$cname.test.$ext\"; if [ -f \"$ctest\" ]; then t=\"$ctest\"; else t=\"$d/index.test.$ext\"; fi; else t=\"$d/$stem.test.$ext\"; fi; app=$(echo \"$f\" | sed -E 's|(.*apps/[^/]+).*|\\1|'); cd \"$app\"; if echo \"$f\" | grep -q 'distributed-checkout'; then node --import tsx --test --watch \"$t\"; else npx vitest --watch \"$t\"; fi"
+    }
+  ]
+}
