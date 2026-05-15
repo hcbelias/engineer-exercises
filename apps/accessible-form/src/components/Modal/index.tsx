@@ -59,10 +59,9 @@ export function Modal({ isOpen, onClose, title, children }: Props) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="modal">
+    <div className="modal" onClick={onClose}>
       <div
         className={`modal__overlay ${isOpen ? "modal__overlay--active" : ""}`}
-        onClick={onClose}
       />
       <div
         ref={containerRef}
