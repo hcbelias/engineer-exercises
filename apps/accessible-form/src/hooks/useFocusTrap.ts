@@ -9,20 +9,6 @@ const FOCUSABLE_SELECTORS = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(", ");
 
-// TODO: Implement useFocusTrap
-//
-// A focus trap prevents keyboard focus from leaving a container element.
-// This is required for accessible modals and dialogs.
-//
-// Returns:
-//   containerRef — attach to your container element
-//   activate()  — start trapping focus
-//   deactivate() — stop trapping focus and remove all listeners
-//
-// When active, Tab and Shift+Tab must cycle through the focusable elements
-// inside the container and never escape to the rest of the page.
-// The trap must handle containers whose focusable children change after activation.
-
 export function useFocusTrap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isActive = useRef(false);
@@ -31,14 +17,27 @@ export function useFocusTrap() {
     if (!isActive.current || !containerRef.current) return;
     if (e.key !== "Tab") return;
 
-    // TODO: implement Tab / Shift+Tab cycling within the container
     const focusable = Array.from(
       containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
     ).filter((el) => !el.closest("[hidden]"));
 
     if (focusable.length === 0) return;
 
-    // TODO: cycle focus between the first and last focusable elements
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+    if(e.shiftKey) {
+      if(document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+        return;
+      }
+    }else{
+      if(document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+        return;
+      }
+    }
   }, []);
 
   const activate = useCallback(() => {
