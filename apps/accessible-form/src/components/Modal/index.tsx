@@ -22,25 +22,28 @@ interface Props {
 
 export function Modal({ isOpen, onClose, title, children }: Props) {
   const titleId = "modal-title";
+  const descriptionId = "modal-description";
   const { containerRef, activate, deactivate } = useFocusTrap();
   const { saveFocus, restoreFocus } = useFocusReturn();
 
   useEffect(() => {
     if (!isOpen) return;
-    // TODO: trap focus, save and restore focus, handle Escape, hide background content
+    activate();
     return () => {
-      // TODO: clean up focus trap, restore focus, unhide background content
+      deactivate();
     };
   }, [isOpen, activate, deactivate, saveFocus, restoreFocus]);
 
   if (!isOpen) return null;
 
   return createPortal(
-    // TODO: add overlay and wire up correct ARIA attributes on the dialog
     <div>
-      <div ref={containerRef} role="dialog" aria-modal="true" aria-labelledby={titleId}>
+      <div className={`modal-overlay ${isOpen ? "modal-overlay--active" : ""}`} onClick={onClose}/>
+      <div ref={containerRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={descriptionId} className="modal">
         <h2 id={titleId}>{title}</h2>
+        <div id={descriptionId}>
         {children}
+        </div>
         <button onClick={onClose}>Close</button>
       </div>
     </div>,
