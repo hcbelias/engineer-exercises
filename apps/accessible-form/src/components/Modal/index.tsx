@@ -37,9 +37,9 @@ export function Modal({ isOpen, onClose, title, children }: Props) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div>
-      <div className={`modal-overlay ${isOpen ? "modal-overlay--active" : ""}`} onClick={onClose}/>
-      <div ref={containerRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={descriptionId} className="modal">
+    <div className="modal">
+      <div className={`modal__overlay ${isOpen ? "modal__overlay--active" : ""}`} onClick={onClose}/>
+      <div ref={containerRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={descriptionId}>
         <h2 id={titleId}>{title}</h2>
         <div id={descriptionId}>
         {children}
