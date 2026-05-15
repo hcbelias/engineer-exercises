@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles/global.css";
+import "./styles/global.scss";
 import { SkipNav } from "./components/SkipNav";
 import { MultiStepForm } from "./components/MultiStepForm";
 import { Modal } from "./components/Modal";

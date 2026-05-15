@@ -1,0 +1,141 @@
+// Design tokens
+$color-primary: #4f46e5;
+$color-primary-dark: #3730a3;
+$color-error: #dc2626;
+$color-success: #16a34a;
+$color-border: #d1d5db;
+$color-text: #111827;
+$color-text-muted: #6b7280;
+$color-bg: #ffffff;
+$color-bg-subtle: #f9fafb;
+$radius: 6px;
+$focus-ring: 0 0 0 3px rgba(79, 70, 229, 0.4);
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-error: #{$color-error};
+  --color-success: #{$color-success};
+  --color-border: #{$color-border};
+  --color-text: #{$color-text};
+  --color-text-muted: #{$color-text-muted};
+  --color-bg: #{$color-bg};
+  --color-bg-subtle: #{$color-bg-subtle};
+  --radius: #{$radius};
+  --focus-ring: #{$focus-ring};
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.5;
+}
+
+// :focus-visible shows the focus ring only for keyboard navigation,
+// not for mouse clicks. This is the modern, correct approach.
+// Never use outline: none without a :focus-visible replacement.
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px black;
+}
+
+// Fallback for browsers that don't support :focus-visible
+@supports not selector(:focus-visible) {
+  *:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px black;
+  }
+}
+
+button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: $radius;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-bg);
+
+  &[aria-invalid='true'] {
+    border-color: $color-error;
+  }
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.error-message {
+  color: $color-error;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+// Visually hidden utility — hides content visually but keeps it
+// accessible to screen readers. Use for skip-nav links at rest,
+// ARIA labels that augment visible text, etc.
+// DO NOT use display:none or visibility:hidden — those also hide from AT.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+#skip-nav:focus {
+  clip: auto;
+  width: auto;
+  height: auto;
+  padding: 8px 16px;
+  margin: 0;
+  overflow: visible;
+  background-color: $color-primary;
+  color: white;
+}
