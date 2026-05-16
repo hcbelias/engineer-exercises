@@ -28,39 +28,47 @@ export function StepOne({ data, onChange, errors, onNext }: Props) {
       <h2>Personal Information</h2>
 
       <div className="field">
-        {/* TODO: associate label with input, communicate required state and error state to assistive technology */}
-        <label>First name *</label>
+        <label htmlFor="firstName">First name *</label>
         <input
+          id="firstName"
           type="text"
+          required
+          aria-invalid={errors.firstName ? "true" : "false"}
+          aria-describedby={errors.firstName ? "firstName-error" : undefined}
           value={data.firstName}
           onChange={(e) => onChange({ firstName: e.target.value })}
         />
-        {/* TODO: ensure the error message is announced to screen readers and linked to its input */}
-        {errors.firstName && <span className="error-message">{errors.firstName}</span>}
+        {errors.firstName && <span aria-live="assertive" id="firstName-error" className="error-message">{errors.firstName}</span>}
       </div>
 
       <div className="field">
-        <label>Last name *</label>
+        <label htmlFor="lastName">Last name *</label>
         <input
+          id="lastName"
           type="text"
+          required
+          aria-invalid={errors.lastName ? "true" : "false"}
+          aria-describedby={errors.lastName ? "lastName-error" : undefined}
           value={data.lastName}
           onChange={(e) => onChange({ lastName: e.target.value })}
         />
-        {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+        {errors.lastName && <span aria-live="assertive" id="lastName-error" className="error-message">{errors.lastName}</span>}
       </div>
 
       <div className="field">
-        <label>Email address *</label>
+        <label htmlFor="email">Email address *</label>
         <input
+          id="email"
           type="email"
+          required
+          aria-invalid={errors.email ? "true" : "false"}
+          aria-describedby={errors.email ? "email-error" : undefined}
           value={data.email}
           onChange={(e) => onChange({ email: e.target.value })}
         />
-        {errors.email && <span className="error-message">{errors.email}</span>}
+        {errors.email && <span aria-live="assertive" id="email-error" className="error-message">{errors.email}</span>}
       </div>
-
-      {/* TODO: prevent accidental form submission */}
-      <button onClick={onNext}>Next →</button>
+      <button onClick={onNext} type="button">Next →</button>
     </div>
   );
 }
