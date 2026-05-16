@@ -34,11 +34,11 @@ export function StepOne({ data, onChange, errors, onNext }: Props) {
           type="text"
           required
           aria-invalid={errors.firstName ? "true" : "false"}
-          aria-describedby={errors.firstName ? "firstName-error" : undefined}
+          aria-describedby="firstName-error"
           value={data.firstName}
           onChange={(e) => onChange({ firstName: e.target.value })}
         />
-        {errors.firstName && <span aria-live="assertive" id="firstName-error" className="error-message">{errors.firstName}</span>}
+        <span aria-live="assertive" id="firstName-error" className="error-message">{errors.firstName ?? ""}</span>
       </div>
 
       <div className="field">
@@ -48,11 +48,11 @@ export function StepOne({ data, onChange, errors, onNext }: Props) {
           type="text"
           required
           aria-invalid={errors.lastName ? "true" : "false"}
-          aria-describedby={errors.lastName ? "lastName-error" : undefined}
+          aria-describedby="lastName-error"
           value={data.lastName}
           onChange={(e) => onChange({ lastName: e.target.value })}
         />
-        {errors.lastName && <span aria-live="assertive" id="lastName-error" className="error-message">{errors.lastName}</span>}
+        <span aria-live="assertive" id="lastName-error" className="error-message">{errors.lastName ?? ""}</span>
       </div>
 
       <div className="field">
@@ -62,11 +62,11 @@ export function StepOne({ data, onChange, errors, onNext }: Props) {
           type="email"
           required
           aria-invalid={errors.email ? "true" : "false"}
-          aria-describedby={errors.email ? "email-error" : undefined}
+          aria-describedby="email-error"
           value={data.email}
           onChange={(e) => onChange({ email: e.target.value })}
         />
-        {errors.email && <span aria-live="assertive" id="email-error" className="error-message">{errors.email}</span>}
+        <span aria-live="assertive" id="email-error" className="error-message">{errors.email ?? ""}</span>
       </div>
       <button onClick={onNext} type="button">Next →</button>
     </div>
