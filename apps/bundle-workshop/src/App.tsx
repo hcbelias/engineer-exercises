@@ -1,25 +1,17 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState, Suspense } from "react";
+import { useState, Suspense, lazy } from "react";
 import { Nav } from "./components/Nav";
 import { Spinner } from "./components/Spinner";
+import { DashboardPage } from "./pages/DashboardPage";
 
-// BUNDLE ISSUE: all four page components are imported statically.
-// Vite/Rollup bundles everything reachable from a static import into the same chunk.
-// The result: chartEngine + pdfEngine + geoData + richTextEngine all load on
-// the very first visit — even if the user only ever looks at the Dashboard.
-//
-// Fix: convert the heavy pages to lazy imports so Rollup splits them into separate chunks.
-// Keep DashboardPage as a static import — it is the landing page and should load immediately.
-// Show a loading fallback while a lazy chunk is downloading.
-//
-// Rebuild (pnpm build) and open dist/stats.html to verify:
-//   ✓ Initial chunk shrinks significantly
-//   ✓ analytics, reports, and settings appear as separate chunks in the treemap
-//   ✓ geoData is no longer visible in the initial chunk
-import { DashboardPage } from "./pages/DashboardPage"; // ✅ keep static — it's the landing page
-import { AnalyticsPage } from "./pages/AnalyticsPage"; // BUNDLE ISSUE: should be lazy
-import { ReportsPage } from "./pages/ReportsPage"; // BUNDLE ISSUE: should be lazy
-import { SettingsPage } from "./pages/SettingsPage"; // BUNDLE ISSUE: should be lazy
+const AnalyticsPage = lazy(() =>
+  import("./pages/AnalyticsPage").then((m) => ({ default: m.AnalyticsPage }))
+);
+const ReportsPage = lazy(() =>
+  import("./pages/ReportsPage").then((m) => ({ default: m.ReportsPage }))
+);
+const SettingsPage = lazy(() =>
+  import("./pages/SettingsPage").then((m) => ({ default: m.SettingsPage }))
+);
 
 type Page = "dashboard" | "analytics" | "reports" | "settings";
 
@@ -61,14 +53,9 @@ export default function App() {
 
       <Nav current={page} onChange={setPage} />
 
-      {/* TODO: wrap ActivePage in a Suspense boundary after converting pages to lazy imports */}
-      <ActivePage />
-
-      {/* Keep Spinner and Suspense imported so they're available for the fix */}
-      <div style={{ display: "none" }}>
-        <Spinner />
-      </div>
-      <div style={{ display: "none" }}>{/* Suspense used above once lazy is applied */}</div>
+      <Suspense fallback={<Spinner />}>
+        <ActivePage />
+      </Suspense>
     </div>
   );
 }

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --port 3008",
     "build": "tsc -b && vite build",
-    "build:report": "tsc -b && vite build --mode report",
+    "build:analyze": "tsc -b && vite build --mode analyze",
     "type-check": "tsc --noEmit",
     "preview": "vite preview --port 3008",
     "test": "vitest run",
