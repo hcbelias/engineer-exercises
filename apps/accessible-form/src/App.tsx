@@ -97,8 +97,6 @@ export default function App() {
           </p>
         </header>
 
-        {/* TAB LIST — currently broken: div+onClick, no ARIA, no keyboard nav */}
-        {/* TODO: convert to an accessible tab list */}
         <div
           style={{
             display: "flex",
