@@ -3,15 +3,16 @@ import { Nav } from "./components/Nav";
 import { Spinner } from "./components/Spinner";
 import { DashboardPage } from "./pages/DashboardPage";
 
-const AnalyticsPage = lazy(() =>
-  import("./pages/AnalyticsPage").then((m) => ({ default: m.AnalyticsPage }))
-);
-const ReportsPage = lazy(() =>
-  import("./pages/ReportsPage").then((m) => ({ default: m.ReportsPage }))
-);
-const SettingsPage = lazy(() =>
-  import("./pages/SettingsPage").then((m) => ({ default: m.SettingsPage }))
-);
+function lazyNamed<T extends object>(
+  loader: () => Promise<T>,
+  name: keyof T
+): React.LazyExoticComponent<React.ComponentType> {
+  return lazy(() => loader().then((m) => ({ default: m[name] as React.ComponentType })));
+}
+
+const AnalyticsPage = lazyNamed(() => import("./pages/AnalyticsPage"), "AnalyticsPage");
+const ReportsPage = lazyNamed(() => import("./pages/ReportsPage"), "ReportsPage");
+const SettingsPage = lazyNamed(() => import("./pages/SettingsPage"), "SettingsPage");
 
 type Page = "dashboard" | "analytics" | "reports" | "settings";
 

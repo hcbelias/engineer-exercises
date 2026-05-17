@@ -28,10 +28,11 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes("node_modules/react-dom")) return "react-dom";
-          if (id.includes("node_modules/react/")) return "react";
+          if (id.includes("/node_modules/react-dom")) return "react-dom";
+          if (id.includes("/node_modules/react/")) return "react";
           if (id.includes("/src/data/geoData")) return "geo-data";
-          if (id.includes("node_modules/")) return "vendor";
+          if (id.includes("/node_modules/")) return "vendor";
+          return undefined;
         },
       },
     },
