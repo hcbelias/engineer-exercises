@@ -1,5 +1,8 @@
 // Step 3: Review & submit
 
+import { useEffect } from "react";
+import { useAnnounce } from "../../hooks/useAnnounce";
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -17,10 +20,15 @@ interface Props {
 }
 
 export function StepThree({ data, onBack, onSubmit, isSubmitting }: Props) {
+  const { announce } = useAnnounce();
+
+  useEffect(() => {
+    announce("Review your details: Name: " + data.firstName + " " + data.lastName + " Email: " + data.email + " Address: " + data.street + ", " + data.city + ", " + data.country);
+  }, [announce, data.firstName, data.lastName, data.email, data.street, data.city, data.country]);
+
   return (
     <div>
-      {/* aria-live announces the review content when this step mounts */}
-      <div aria-live="polite" aria-atomic="true">
+      <div>
         <h2>Review your details</h2>
 
         <dl style={{ lineHeight: 2 }}>
@@ -45,7 +53,6 @@ export function StepThree({ data, onBack, onSubmit, isSubmitting }: Props) {
           type="button"
           onClick={onSubmit}
           disabled={isSubmitting}
-          aria-disabled={isSubmitting}
           aria-busy={isSubmitting}
           style={{ background: "#4f46e5", color: "#fff" }}
         >
