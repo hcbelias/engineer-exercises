@@ -1,4 +1,4 @@
-import { useState, useId } from "react";
+import { useState, useId, useRef, useEffect } from "react";
 import { Option } from "./Option";
 
 interface ComboBoxProps {
@@ -8,39 +8,83 @@ interface ComboBoxProps {
   onChange: (value: string) => void;
 }
 
-// TODO: Implement an accessible ComboBox (typeahead dropdown)
-//
-// The input must communicate its state to assistive technology: whether the
-// list is expanded, which option is currently highlighted, and what the list
-// contains.
-//
-// Keyboard users must be able to open and close the list, navigate through
-// options, select with Enter, and dismiss with Escape — all without a mouse.
-// Clicking outside the component should also close the list.
-//
-// Options should filter as the user types.
-
 export function ComboBox({ label, options, value, onChange }: ComboBoxProps) {
   const id = useId();
   const listboxId = `${id}-listbox`;
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState(value);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const filteredOptions = options.filter((opt) =>
     opt.toLowerCase().includes(inputValue.toLowerCase()),
   );
 
-  function handleKeyDown(_e: React.KeyboardEvent<HTMLInputElement>) {
-    // TODO: handle keyboard navigation
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+        setActiveIndex(-1);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        if (!isOpen) {
+          setIsOpen(true);
+          setActiveIndex(0);
+        } else {
+          setActiveIndex((i) => (i < filteredOptions.length - 1 ? i + 1 : 0));
+        }
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        if (!isOpen) {
+          setIsOpen(true);
+          setActiveIndex(filteredOptions.length - 1);
+        } else {
+          setActiveIndex((i) => (i > 0 ? i - 1 : filteredOptions.length - 1));
+        }
+        break;
+      case "Enter":
+        if (isOpen && activeIndex >= 0) {
+          e.preventDefault();
+          const selected = filteredOptions[activeIndex];
+          onChange(selected);
+          setInputValue(selected);
+          setIsOpen(false);
+          setActiveIndex(-1);
+        }
+        break;
+      case "Escape":
+        setIsOpen(false);
+        setInputValue(value);
+        setActiveIndex(-1);
+        break;
+      case "Tab":
+        setIsOpen(false);
+        setActiveIndex(-1);
+        break;
+    }
   }
 
+  const activeDescendant = activeIndex >= 0 ? `${id}-option-${activeIndex}` : undefined;
+
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }} ref={containerRef}>
       <label htmlFor={`${id}-input`}>{label}</label>
       <input
         id={`${id}-input`}
-        // TODO: add the necessary ARIA attributes to communicate state to assistive technology
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-controls={listboxId}
+        aria-autocomplete="list"
+        aria-activedescendant={activeDescendant}
         value={inputValue}
         onChange={(e) => {
           setInputValue(e.target.value);

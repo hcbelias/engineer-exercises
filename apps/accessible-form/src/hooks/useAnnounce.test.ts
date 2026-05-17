@@ -49,4 +49,53 @@ describe("useAnnounce", () => {
 
     expect(document.body.querySelector("[aria-live]")).toBeNull();
   });
+
+  it("announcing the same message twice still triggers a second announcement", () => {
+    const { result } = renderHook(() => useAnnounce());
+    const liveRegion = document.body.querySelector("[aria-live]")!;
+
+    act(() => {
+      result.current.announce("Email is required");
+      vi.runAllTimers();
+    });
+
+    expect(liveRegion.textContent).toBe("Email is required");
+
+    act(() => {
+      result.current.announce("Email is required");
+    });
+
+    // textContent must be cleared before the timer fires so AT sees a mutation
+    expect(liveRegion.textContent).toBe("");
+
+    act(() => {
+      vi.runAllTimers();
+    });
+
+    expect(liveRegion.textContent).toBe("Email is required");
+  });
+
+  it("live region is visually hidden from the page layout", () => {
+    renderHook(() => useAnnounce());
+
+    const liveRegion = document.body.querySelector("[aria-live]") as HTMLElement;
+    expect(liveRegion).not.toBeNull();
+    expect(liveRegion.style.position).toBe("absolute");
+    expect(liveRegion.style.width).toBe("1px");
+    expect(liveRegion.style.height).toBe("1px");
+    expect(liveRegion.style.overflow).toBe("hidden");
+  });
+
+  it("announce() switches aria-live to assertive when specified", () => {
+    const { result } = renderHook(() => useAnnounce());
+    const liveRegion = document.body.querySelector("[aria-live]")!;
+
+    act(() => {
+      result.current.announce("Critical error", "assertive");
+      vi.runAllTimers();
+    });
+
+    expect(liveRegion.getAttribute("aria-live")).toBe("assertive");
+    expect(liveRegion.textContent).toBe("Critical error");
+  });
 });

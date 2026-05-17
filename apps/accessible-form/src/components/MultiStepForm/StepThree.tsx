@@ -1,5 +1,8 @@
 // Step 3: Review & submit
 
+import { useEffect } from "react";
+import { useAnnounce } from "../../hooks/useAnnounce";
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -17,34 +20,41 @@ interface Props {
 }
 
 export function StepThree({ data, onBack, onSubmit, isSubmitting }: Props) {
+  const { announce } = useAnnounce();
+
+  useEffect(() => {
+    announce("Review your details: Name: " + data.firstName + " " + data.lastName + " Email: " + data.email + " Address: " + data.street + ", " + data.city + ", " + data.country);
+  }, [announce, data.firstName, data.lastName, data.email, data.street, data.city, data.country]);
+
   return (
     <div>
-      <h2>Review your details</h2>
+      <div>
+        <h2>Review your details</h2>
 
-      {/* TODO: ensure screen readers announce the review content when this step loads */}
-
-      <dl style={{ lineHeight: 2 }}>
-        <dt>Name</dt>
-        <dd>
-          {data.firstName} {data.lastName}
-        </dd>
-        <dt>Email</dt>
-        <dd>{data.email}</dd>
-        <dt>Address</dt>
-        <dd>
-          {data.street}, {data.city}, {data.country}
-        </dd>
-      </dl>
+        <dl style={{ lineHeight: 2 }}>
+          <dt>Name</dt>
+          <dd>
+            {data.firstName} {data.lastName}
+          </dd>
+          <dt>Email</dt>
+          <dd>{data.email}</dd>
+          <dt>Address</dt>
+          <dd>
+            {data.street}, {data.city}, {data.country}
+          </dd>
+        </dl>
+      </div>
 
       <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
-        <button onClick={onBack} disabled={isSubmitting}>
+        <button type="button" onClick={onBack} disabled={isSubmitting}>
           ← Back
         </button>
         <button
+          type="button"
           onClick={onSubmit}
           disabled={isSubmitting}
+          aria-busy={isSubmitting}
           style={{ background: "#4f46e5", color: "#fff" }}
-          // TODO: communicate to assistive technology when the form is being submitted
         >
           {isSubmitting ? "Submitting…" : "Submit"}
         </button>

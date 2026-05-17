@@ -1,5 +1,5 @@
-import { useState } from "react";
 import "./styles/global.scss";
+import { useRef, useState } from "react";
 import { SkipNav } from "./components/SkipNav";
 import { MultiStepForm } from "./components/MultiStepForm";
 import { Modal } from "./components/Modal";
@@ -46,12 +46,49 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFruit, setSelectedFruit] = useState("");
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const focusTab = (index: number) => {
+    setActiveTab(index);
+    tabRefs.current[index]?.focus();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowRight") {
+      if (activeTab === TABS.length - 1) {
+        focusTab(0);
+        return;
+      }
+      focusTab(activeTab + 1);
+    } else if (e.key === "ArrowLeft") {
+      if (activeTab === 0) {
+        focusTab(TABS.length - 1);
+        return;
+      }
+      focusTab(activeTab - 1);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      focusTab(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      focusTab(TABS.length - 1);
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const focusedIndex = tabRefs.current.findIndex((el) => el === document.activeElement);
+      if (focusedIndex !== -1) focusTab(focusedIndex);
+    }
+  };
 
   return (
     <>
       <SkipNav />
       <div
-        style={{ maxWidth: 700, margin: "0 auto", padding: "24px 16px", fontFamily: "sans-serif" }}
+        style={{
+          maxWidth: 700,
+          margin: "0 auto",
+          padding: "24px 16px",
+          fontFamily: "sans-serif",
+        }}
       >
         <header>
           <h1>Accessibility Workshop</h1>
@@ -60,15 +97,28 @@ export default function App() {
           </p>
         </header>
 
-        {/* TAB LIST — currently broken: div+onClick, no ARIA, no keyboard nav */}
-        {/* TODO: convert to an accessible tab list */}
         <div
-          style={{ display: "flex", gap: 0, borderBottom: "2px solid #e5e7eb", marginBottom: 24 }}
+          style={{
+            display: "flex",
+            gap: 0,
+            borderBottom: "2px solid #e5e7eb",
+            marginBottom: 24,
+          }}
+          role="tablist"
         >
           {TABS.map((tab, i) => (
             <div
+              role="tab"
+              aria-selected={activeTab === i}
+              tabIndex={activeTab === i ? 0 : -1}
+              id={tab.id}
               key={tab.id}
-              onClick={() => setActiveTab(i)}
+              aria-controls={tab.panelId}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
+              onClick={() => focusTab(i)}
+              onKeyDown={handleKeyDown}
               style={{
                 padding: "10px 16px",
                 cursor: "pointer",
@@ -86,13 +136,13 @@ export default function App() {
         {/* TAB PANELS — needs role="tabpanel" etc */}
         <main id="main-content" tabIndex={-1}>
           {activeTab === 0 && (
-            <div id={TABS[0].panelId}>
+            <div id={TABS[0].panelId} role="tabpanel" aria-labelledby={TABS[0].id}>
               <MultiStepForm />
             </div>
           )}
 
           {activeTab === 1 && (
-            <div id={TABS[1].panelId}>
+            <div id={TABS[1].panelId} role="tabpanel" aria-labelledby={TABS[1].id}>
               <h2>Modal Dialog</h2>
               <p>Click the button below to open an accessible modal dialog.</p>
               <ModalTrigger onClick={() => setIsModalOpen(true)} />
@@ -108,7 +158,7 @@ export default function App() {
           )}
 
           {activeTab === 2 && (
-            <div id={TABS[2].panelId}>
+            <div id={TABS[2].panelId} role="tabpanel" aria-labelledby={TABS[2].id}>
               <h2>ComboBox</h2>
               <p>
                 A typeahead dropdown that must be navigable by keyboard and announced by screen
