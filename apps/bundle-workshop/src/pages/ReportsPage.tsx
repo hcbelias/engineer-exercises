@@ -1,62 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { buildTable, createDocument, REPORT_CSS } from "../lib/pdfEngine";
-
-// BUNDLE ISSUE: GEO_DATA (120 countries, ~18 KB) is imported at the module level.
-// Because App.tsx imports ReportsPage eagerly, this data lands in the initial bundle
-// and is parsed on every page load — even when the user never visits Reports.
-//
-// Fix: move the import inside the export handler so it only loads when needed:
-//
-//   async function handleExport() {
-//     const { GEO_DATA } = await import("../data/geoData"); // dynamic import
-//     // ... use GEO_DATA here
-//   }
-//
-// Dynamic imports return a Promise — wrap the button handler in async/await and
-// show a loading state while the chunk downloads.
-//
-// After the fix, rebuild and check that geoData no longer appears in the
-// initial chunk in dist/stats.html.
-import { GEO_DATA, CONTINENTS } from "../data/geoData"; // BUNDLE ISSUE: static import of large dataset
-
+import type { GEO_DATA } from "../data/geoData";
 import { formatNumber, formatCurrency } from "../utils/formatters";
+import { Spinner } from "../components/Spinner";
 
-const COLUMNS = buildTable(
-  [
-    { header: "Country", key: "name", width: 160 },
-    { header: "Capital", key: "capital", width: 120 },
-    { header: "Continent", key: "continent", width: 120 },
-    {
-      header: "Population",
-      key: "population",
-      width: 100,
-      align: "right",
-      format: (v) => formatNumber(v as number),
-    },
-    {
-      header: "GDP/capita",
-      key: "gdpPerCapita",
-      width: 100,
-      align: "right",
-      format: (v) => formatCurrency(v as number),
-    },
-    { header: "Currency", key: "currencyCode", width: 80 },
-  ],
-  GEO_DATA as unknown as Record<string, unknown>[],
-);
+type GeoEntry = (typeof GEO_DATA)[number];
+
+const COLUMN_DEFS = [
+  { header: "Country", key: "name", width: 160 },
+  { header: "Capital", key: "capital", width: 120 },
+  { header: "Continent", key: "continent", width: 120 },
+  {
+    header: "Population",
+    key: "population",
+    width: 100,
+    align: "right" as const,
+    format: (v: unknown) => formatNumber(v as number),
+  },
+  {
+    header: "GDP/capita",
+    key: "gdpPerCapita",
+    width: 100,
+    align: "right" as const,
+    format: (v: unknown) => formatCurrency(v as number),
+  },
+  { header: "Currency", key: "currencyCode", width: 80 },
+];
 
 export function ReportsPage() {
+  const [geoData, setGeoData] = useState<GeoEntry[] | null>(null);
+  const [continents, setContinents] = useState<string[]>([]);
   const [continent, setContinent] = useState("");
   const [exporting, setExporting] = useState(false);
   const [exportDone, setExportDone] = useState(false);
 
-  const filtered = continent ? GEO_DATA.filter((c) => c.continent === continent) : GEO_DATA;
-  const doc = createDocument({ title: "Country Report", author: "Bundle Workshop" });
+  useEffect(() => {
+    import("../data/geoData").then(({ GEO_DATA, CONTINENTS }) => {
+      setGeoData(GEO_DATA);
+      setContinents(CONTINENTS);
+    });
+  }, []);
+
+  const columns = useMemo(
+    () => (geoData ? buildTable(COLUMN_DEFS, geoData as unknown as Record<string, unknown>[]) : null),
+    [geoData],
+  );
+
+  const filtered = useMemo(
+    () => (geoData ? (continent ? geoData.filter((c) => c.continent === continent) : geoData) : []),
+    [geoData, continent],
+  );
 
   async function handleExport() {
     setExporting(true);
     setExportDone(false);
-    // Simulate PDF generation using pdfEngine utilities
+    const doc = createDocument({ title: "Country Report", author: "Bundle Workshop" });
     void doc;
     void REPORT_CSS;
     await new Promise((r) => setTimeout(r, 1200));
@@ -77,7 +75,8 @@ export function ReportsPage() {
         <div>
           <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 4px" }}>Reports</h2>
           <p style={{ fontSize: 13, color: "#6b7280", margin: 0 }}>
-            {COLUMNS.header.length} columns · {filtered.length} of {GEO_DATA.length} countries
+            {columns ? `${columns.header.length} columns · ` : ""}
+            {geoData ? `${filtered.length} of ${geoData.length} countries` : "Loading…"}
           </p>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -92,7 +91,7 @@ export function ReportsPage() {
             }}
           >
             <option value="">All continents</option>
-            {CONTINENTS.map((c) => (
+            {continents.map((c) => (
               <option key={c} value={c}>
                 {c}
               </option>
@@ -117,48 +116,52 @@ export function ReportsPage() {
         </div>
       </div>
 
-      <div style={{ overflowX: "auto", border: "1px solid #e5e7eb", borderRadius: 8 }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-          <thead>
-            <tr style={{ background: "#f9fafb", borderBottom: "1px solid #e5e7eb" }}>
-              {COLUMNS.header.map((col) => (
-                <th
-                  key={col.key}
-                  style={{
-                    padding: "10px 12px",
-                    textAlign: col.align ?? "left",
-                    fontWeight: 600,
-                    color: "#374151",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {col.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((country, ri) => (
-              <tr
-                key={country.code}
-                style={{
-                  borderBottom: "1px solid #f3f4f6",
-                  background: ri % 2 ? "#fafafa" : "#fff",
-                }}
-              >
-                {COLUMNS.body[GEO_DATA.indexOf(country)].map((cell, ci) => (
-                  <td
-                    key={ci}
-                    style={{ padding: "8px 12px", textAlign: cell.align, whiteSpace: "nowrap" }}
+      {!geoData || !columns ? (
+        <Spinner />
+      ) : (
+        <div style={{ overflowX: "auto", border: "1px solid #e5e7eb", borderRadius: 8 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: "#f9fafb", borderBottom: "1px solid #e5e7eb" }}>
+                {columns.header.map((col) => (
+                  <th
+                    key={col.key}
+                    style={{
+                      padding: "10px 12px",
+                      textAlign: col.align ?? "left",
+                      fontWeight: 600,
+                      color: "#374151",
+                      whiteSpace: "nowrap",
+                    }}
                   >
-                    {cell.value}
-                  </td>
+                    {col.label}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filtered.map((country, ri) => (
+                <tr
+                  key={country.code}
+                  style={{
+                    borderBottom: "1px solid #f3f4f6",
+                    background: ri % 2 ? "#fafafa" : "#fff",
+                  }}
+                >
+                  {columns.body[geoData.indexOf(country)].map((cell, ci) => (
+                    <td
+                      key={ci}
+                      style={{ padding: "8px 12px", textAlign: cell.align, whiteSpace: "nowrap" }}
+                    >
+                      {cell.value}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

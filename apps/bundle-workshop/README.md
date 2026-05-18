@@ -25,18 +25,41 @@ pnpm build          # production build — generates dist/ and dist/stats.html
 pnpm preview        # serve the production build locally
 ```
 
-## Measuring the problem
+## Bundle analyzer — rollup-plugin-visualizer
+
+This exercise uses [`rollup-plugin-visualizer`](https://github.com/btd/rollup-plugin-visualizer) to generate an interactive treemap of your bundle after every production build.
+
+| Script | What it does |
+|---|---|
+| `pnpm build` | Production build; writes `dist/stats.html` (no auto-open) |
+| `pnpm build:analyze` | Same build, then opens `dist/stats.html` in your browser automatically |
+
+The treemap shows every module in the bundle, sized proportionally by their **gzip bytes**. Each colour region is a separate JS chunk. Hover any box to see the module path and exact byte counts (raw / gzip / brotli).
+
+**Key things to look for:**
+
+- The **initial chunk** (`index-[hash].js`) — everything here downloads before the user sees anything.
+- **Number of chunks** — after code splitting, each lazy page becomes its own coloured region.
+- **Largest box in a chunk** — that's your next candidate for splitting or tree-shaking.
+
+**Before any fixes**, every module lands in a single large chunk.  
+**After all fixes**, the initial chunk should shrink to roughly 15–20 KB gzipped, with `chartEngine`, `pdfEngine`, `richTextEngine`, and `geoData` each in their own separate chunk.
+
+## Exercises
+
+### 0. Baseline — measure before you fix
+
+Before changing any code, capture the current state of the bundle so you have a reference point to compare against.
 
 ```bash
-pnpm build
-# Note the size of index-[hash].js in the terminal output
-open dist/stats.html   # or: npx serve dist/stats.html
+pnpm build:analyze
 ```
 
-The treemap shows every module in your bundle and which chunk it lives in.
-**Before any fixes**, everything should appear in a single large chunk.
-**After all fixes**, the initial chunk should shrink to roughly 15–20 KB gzipped,
-with `chartEngine`, `pdfEngine`, `richTextEngine`, and `geoData` in separate chunks.
+Note the size of `index-[hash].js` printed in the terminal (raw KB and gzipped KB). In the browser treemap, confirm that all four heavy modules — `chartEngine`, `pdfEngine`, `richTextEngine`, and `geoData` — are visible inside the single initial chunk.
+
+Record these numbers. Every subsequent exercise should make the initial chunk smaller.
+
+---
 
 ## What's already built
 

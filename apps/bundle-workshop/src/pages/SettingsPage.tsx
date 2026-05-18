@@ -1,18 +1,7 @@
-import { useState, Suspense } from "react";
+import { useState, Suspense, lazy } from "react";
 import { Spinner } from "../components/Spinner";
 
-// BUNDLE ISSUE: RichTextEditor (which imports richTextEngine) is imported statically
-// even though it is only rendered when the user clicks "Edit bio".
-//
-// Because App.tsx eagerly imports SettingsPage, AND SettingsPage statically imports
-// RichTextEditor, richTextEngine ends up in the initial bundle for every visitor —
-// even those who only ever look at the Dashboard.
-//
-// Fix: lazy-load RichTextEditor so richTextEngine only downloads when the editor is opened.
-// Wrap the conditional render in a Suspense boundary to show a loading fallback.
-//
-// Verify in dist/stats.html: richTextEngine should appear in a separate chunk.
-import RichTextEditor from "../components/RichTextEditor"; // BUNDLE ISSUE: static import
+const RichTextEditor = lazy(() => import("../components/RichTextEditor"));
 
 interface Field {
   label: string;
