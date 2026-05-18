@@ -1,41 +1,27 @@
-// BUNDLE ISSUE: namespace import prevents tree shaking.
-//
-// `import * as fmt` forces the bundler to include ALL 30+ exports from formatters.ts
-// in this chunk, even though only 3 are used below (formatCurrency, formatNumber, formatChange).
-//
-// Rollup/Vite can tree-shake *named* imports because they're statically analysable.
-// A namespace import creates a runtime object — the bundler must preserve every export
-// in case code accesses a property dynamically (e.g. fmt[someVariable]).
-//
-// Fix: replace the namespace import with explicit named imports:
-//   import { formatCurrency, formatNumber, formatChange } from "../utils/formatters";
-//
-// After the fix, rebuild and check dist/stats.html — the chunk for DashboardPage
-// should shrink noticeably as the 20+ unused formatter functions are eliminated.
-import * as fmt from "../utils/formatters"; // BUNDLE ISSUE: import * blocks tree shaking
+import { formatCurrency, formatNumber, formatPercent, formatChange, formatDate } from "../utils/formatters";
 
 const METRICS = [
   {
     label: "Monthly revenue",
     value: 128400,
     prev: 115200,
-    format: (v: number) => fmt.formatCurrency(v),
+    format: (v: number) => formatCurrency(v),
   },
-  { label: "Active users", value: 48291, prev: 44100, format: (v: number) => fmt.formatNumber(v) },
+  { label: "Active users", value: 48291, prev: 44100, format: (v: number) => formatNumber(v) },
   {
     label: "Conversion rate",
     value: 0.0342,
     prev: 0.0318,
-    format: (v: number) => fmt.formatPercent(v),
+    format: (v: number) => formatPercent(v),
   },
   {
     label: "Avg order value",
     value: 84.6,
     prev: 79.2,
-    format: (v: number) => fmt.formatCurrency(v),
+    format: (v: number) => formatCurrency(v),
   },
-  { label: "Churn rate", value: 0.021, prev: 0.024, format: (v: number) => fmt.formatPercent(v) },
-  { label: "Support tickets", value: 312, prev: 287, format: (v: number) => fmt.formatNumber(v) },
+  { label: "Churn rate", value: 0.021, prev: 0.024, format: (v: number) => formatPercent(v) },
+  { label: "Support tickets", value: 312, prev: 287, format: (v: number) => formatNumber(v) },
 ];
 
 const RECENT = [
@@ -93,7 +79,7 @@ export function DashboardPage() {
               <p style={{ margin: 0, fontSize: 12, color: "#6b7280" }}>{label}</p>
               <p style={{ margin: "6px 0 2px", fontSize: 22, fontWeight: 700 }}>{format(value)}</p>
               <p style={{ margin: 0, fontSize: 12, color: change >= 0 ? "#16a34a" : "#dc2626" }}>
-                {fmt.formatChange(change)} vs last month
+                {formatChange(change)} vs last month
               </p>
             </div>
           );
@@ -126,9 +112,9 @@ export function DashboardPage() {
               <td style={{ padding: "10px 12px", fontFamily: "monospace" }}>{row.id}</td>
               <td style={{ padding: "10px 12px" }}>{row.customer}</td>
               <td style={{ padding: "10px 12px", fontWeight: 600 }}>
-                {fmt.formatCurrency(row.amount)}
+                {formatCurrency(row.amount)}
               </td>
-              <td style={{ padding: "10px 12px", color: "#6b7280" }}>{fmt.formatDate(row.date)}</td>
+              <td style={{ padding: "10px 12px", color: "#6b7280" }}>{formatDate(row.date)}</td>
               <td style={{ padding: "10px 12px" }}>
                 <span
                   style={{
