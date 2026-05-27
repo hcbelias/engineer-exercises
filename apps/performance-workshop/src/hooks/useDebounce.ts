@@ -8,9 +8,22 @@
 // Usage:
 //   const debouncedQuery = useDebounce(query, 300);
 //   // debouncedQuery lags 300 ms behind query — the expensive filter only fires
+
+import { useEffect, useState } from "react";
+
 //   // after the user pauses typing, not on every keystroke.
 export function useDebounce<T>(value: T, delay: number): T {
-  // TODO: replace with a real implementation
-  void delay;
-  return value;
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [value, delay]);
+
+  return debouncedValue;
 }

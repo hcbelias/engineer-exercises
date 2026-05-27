@@ -3,6 +3,7 @@ import { filterAndSortProducts } from "../../utils/compute";
 import { ALL_PRODUCTS } from "../../data/mockProducts";
 import { SearchResults } from "./SearchResults";
 import type { FilterState } from "../../types";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const DEFAULT_FILTERS: FilterState = {
   category: "",
@@ -18,8 +19,7 @@ export function SearchPanel() {
 
   // PERF ISSUE: `query` updates on every keystroke, so filterAndSortProducts
   // (a 5,000-item sort) runs on every character typed.
-  // Fix: introduce debouncing so the filter only fires after the user pauses typing.
-  const debouncedQuery = query; // TODO: debounce query
+  const debouncedQuery = useDebounce(query, 300);
 
   const results = useMemo(
     () => filterAndSortProducts(ALL_PRODUCTS, DEFAULT_FILTERS, debouncedQuery),
